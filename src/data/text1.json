@@ -1,0 +1,24 @@
+{
+  "title": "Somme dammy text number 1.",
+  "titleTranslation": {
+    "pl": "Jakiś cholerny tekst numer 1."
+  },
+  "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  "contentTranslation": {
+    "pl": "Lorem Ipsum to po prostu fikcyjny tekst branży poligraficznej i składu tekstu. Lorem Ipsum jest standardowym fikcyjnym tekstem w branży już od XVI wieku, kiedy nieznana drukarnia wzięła kambuz z czcionkami i poskładała je, by stworzyć zeszyt z wzorami czcionek. Przetrwał nie tylko pięć wieków, ale także skok w kierunku składu elektronicznego, pozostając w zasadzie niezmieniony. Został spopularyzowany w latach 60. wraz z wydaniem arkuszy Letraset zawierających fragmenty Lorem Ipsum, a ostatnio wraz z oprogramowaniem DTP, takim jak Aldus PageMaker, zawierającym wersje Lorem Ipsum."
+  },
+  "sentences": [
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+  ],
+  "csentencesTranslation": {
+    "pl": [
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    ]
+  }
+}

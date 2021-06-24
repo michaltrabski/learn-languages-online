@@ -15,6 +15,7 @@ import { Box, CssBaseline } from "@material-ui/core";
 import { slug, to } from "./utils/utils";
 import { useAudio } from "./hooks/useAudio";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 interface Word {
   w: string;
@@ -97,6 +98,11 @@ function App() {
     console.log(slug);
     setSound(slug);
     controls.play();
+
+    axios
+      .get(`https://poznaj-testy.hekko24.pl/en/${sound}.mp3`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
   // const audio = useRef(new Audio());
   // const [isPlaying, setIsPlaying] = useState(false);
@@ -108,25 +114,14 @@ function App() {
 
   return (
     <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
-
       <Wrapper>
         <>
           <CssBaseline />
           {audioElement}
           {sound}
+          <a href={`https://poznaj-testy.hekko24.pl/en/${sound}.mp3`}>
+            {sound}
+          </a>
           <button onClick={() => controls.play()}>play</button>
 
           <Switch>

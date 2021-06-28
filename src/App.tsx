@@ -16,6 +16,7 @@ import { slug, to } from "./utils/utils";
 import { useAudio } from "./hooks/useAudio";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
+import Experiment1 from "./components/Experiment1";
 
 interface Word {
   w: string;
@@ -28,12 +29,13 @@ interface Sentence {
 const stuffToRemoveFromText = ["“", "”", "...", "..", ";"];
 
 function App() {
-  console.log("App");
+  // console.log("App");
   const [sentences, setSentences] = useState<Sentence[]>([]);
   const [text, setText] = useState("Loading...");
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
+    // console.log("xxxxxxxxxx");
     fetch(longText)
       .then((res) => res.text())
       .then((text) => {
@@ -44,7 +46,7 @@ function App() {
         for (const el of stuffToRemoveFromText) {
           normalText = normalText.replaceAll(el, "");
         }
-
+        // console.log("yyyyyyyyyy");
         setText(normalText);
 
         const accuranceArray = _.countBy(normalText.split(" "));
@@ -95,7 +97,7 @@ function App() {
 
   const [sound, setSound] = useState("");
   const changeSound = (slug: string) => {
-    console.log(slug);
+    // console.log(slug);
     setSound(slug);
     controls.play();
 
@@ -117,18 +119,18 @@ function App() {
       <Wrapper>
         <>
           <CssBaseline />
-          {audioElement}
-          {sound}
-          <a href={`https://poznaj-testy.hekko24.pl/en/${sound}.mp3`}>
-            {sound}
-          </a>
-          <button onClick={() => controls.play()}>play</button>
 
           <Switch>
             <Route exact path="/">
+              {audioElement}
+              {sound}
+              <a href={`https://poznaj-testy.hekko24.pl/en/${sound}.mp3`}>
+                {sound}
+              </a>
+              <button onClick={() => controls.play()}>play</button>
               <Box>
                 {sentences.slice(0, 50).map((item, i) => (
-                  <p>
+                  <p key={i}>
                     <PlayButton
                       play={play}
                       slug={slug(item.s)}
@@ -144,7 +146,7 @@ function App() {
                   .reverse()
                   .slice(0, 10)
                   .map((item, i) => (
-                    <p>
+                    <p key={i}>
                       <PlayButton
                         play={play}
                         slug={slug(item.s)}
@@ -154,6 +156,9 @@ function App() {
                     </p>
                   ))}
               </Box>
+            </Route>
+            <Route path="/experiment1">
+              <Experiment1 />
             </Route>
           </Switch>
         </>

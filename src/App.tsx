@@ -1,4 +1,5 @@
 import React, { createElement, useRef } from "react";
+import "@fontsource/roboto";
 import PlayButton from "./components/PlayButton";
 import Text from "./components/Text";
 import longText from "./data/longText1.txt";

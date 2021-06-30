@@ -2,16 +2,17 @@ import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Container } from "@material-ui/core";
+import { Container, CssBaseline } from "@material-ui/core";
 
 interface Props {
   children: JSX.Element;
 }
-export default function Wrapper(props: Props) {
+export default function WrapperContainer(props: Props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      <CssBaseline />
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(2),
       //   textAlign: "center",
-      color: theme.palette.text.secondary,
+      // color: theme.palette.text.secondary,
     },
   })
 );

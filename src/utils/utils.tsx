@@ -41,7 +41,11 @@ export const getWords = (text: string, sentences: string[]) => {
   const countWords = _.countBy(text.split(" "));
 
   const words: Word[] = Object.entries(countWords).map((item) => {
-    const word = { word: item[0], count: item[1], examples: [] };
+    const word = {
+      word: item[0],
+      count: item[1],
+      examples: [],
+    };
     return word;
   });
 

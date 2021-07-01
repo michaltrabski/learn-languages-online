@@ -19,7 +19,7 @@ function Home() {
   const [words, setWords] = useState<any[]>([]);
   const [sound, setSound] = useState("");
   const { audioElement, controls } = useAudio(sound);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
     fetch(longText)
@@ -64,7 +64,7 @@ function Home() {
         <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button>
 
         {words.slice(0, 1000).map((w) => (
-          <div key={w.word}>{w.word}, </div>
+          <span key={w.word}>{w.word}, </span>
         ))}
       </>
     </Box>

@@ -45,6 +45,7 @@ export const getWords = (text: string, sentences: string[]) => {
       count: item[1],
       examples: [],
     };
+
     return word;
   });
 
@@ -59,7 +60,7 @@ export const getWords = (text: string, sentences: string[]) => {
     const newItem = { ...item };
     // console.log(1, newItem);
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
       const index = examples.findIndex((example) => {
         const exampleLowerCase = example
           .toLowerCase()
@@ -81,7 +82,6 @@ export const getWords = (text: string, sentences: string[]) => {
     return newItem;
   });
 
-  // console.log(wordsWithExamples);
   return wordsWithExamples;
 };
 

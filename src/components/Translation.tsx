@@ -16,14 +16,13 @@ const Translation = () => {
   return (
     <span className={classes.root} onClick={() => setShow(true)}>
       {" "}
-      -{" "}
       {show ? (
         <span>
           <PlayBtn />
           To jest tłumaczenie
         </span>
       ) : (
-        <span className={classes.pointer}>(pokaż tłumaczenie)</span>
+        <span className={classes.pointer}>tłumaczenie</span>
       )}
     </span>
   );

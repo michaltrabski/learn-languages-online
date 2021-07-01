@@ -18,7 +18,6 @@ export const getText = (text: string) => {
 };
 
 export const getSentences = (text: string) => {
-  // const sentences = text.split(/(\?\s)|(\.\s)|(!\s)|(\."\s)|(\.”\s)/g);
   const sentences = text.split("&#32;");
 
   const filteredS = sentences.filter(
@@ -51,15 +50,30 @@ export const getWords = (text: string, sentences: string[]) => {
 
   const wordsOrdered = _.orderBy(words, ["count"], ["desc"]);
 
-  const examples = [...sentences];
+  const first1000words = wordsOrdered.slice(0, 1000).map((w) => w.word);
+
+  const examples = createExamplesArray(sentences, first1000words);
+  console.log("examples", examples.length);
 
   const wordsWithExamples = wordsOrdered.map((item) => {
     const newItem = { ...item };
+    // console.log(1, newItem);
 
-    for (let i = 1; i <= 5; i++) {
-      const index = examples.findIndex((e) => {
-        const lower = e.toLowerCase();
-        return lower.includes(item.word.toLowerCase());
+    for (let i = 1; i <= 10; i++) {
+      const index = examples.findIndex((example) => {
+        const exampleLowerCase = example
+          .toLowerCase()
+          .replaceAll(".", "")
+          .replaceAll("?", "")
+          .replaceAll("!", "");
+
+        // console.log(
+        //   "XXXXX =",
+        //   exampleLowerCase.split(" "),
+        //   item.word.toLowerCase(),
+        //   exampleLowerCase.split(" ").includes(item.word.toLowerCase())
+        // );
+        return exampleLowerCase.split(" ").includes(item.word.toLowerCase());
       });
       if (index !== -1) newItem.examples.push(...examples.splice(index, 1));
     }
@@ -69,6 +83,33 @@ export const getWords = (text: string, sentences: string[]) => {
 
   // console.log(wordsWithExamples);
   return wordsWithExamples;
+};
+
+const createExamplesArray = (sentences: string[], first1000words: string[]) => {
+  const examples = [...sentences];
+  // console.log("examples", examples);
+
+  const easyExamples = examples.filter((item) => check(item, first1000words)); // examples that contains only words from "first1000words"
+  // console.log("easyExamples", easyExamples);
+
+  const result = _.uniqBy([...easyExamples, ...examples], (item) => item);
+
+  return result;
+};
+
+const check = (sentence: string, first1000words: string[]) => {
+  const wordsArr = sentence
+    .toLowerCase()
+    .replaceAll(".", "")
+    .replaceAll("?", "")
+    .replaceAll("!", "")
+    .split(" ");
+
+  // console.log("words =", wordsArr, first1000words);
+  for (let i = 0; i < wordsArr.length; i++) {
+    if (!first1000words.includes(wordsArr[i])) return false;
+  }
+  return true;
 };
 
 export const to = (slug: string) => `/en-pl/${slug}`;

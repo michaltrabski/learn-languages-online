@@ -14,13 +14,12 @@ import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
 
 function Home() {
-  console.log("home");
   const [sentences, setSentences] = useState<any[]>([]);
   const [text, setText] = useState("Loading...");
   const [words, setWords] = useState<any[]>([]);
   const [sound, setSound] = useState("");
   const { audioElement, controls } = useAudio(sound);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(2);
 
   useEffect(() => {
     fetch(longText)
@@ -61,7 +60,12 @@ function Home() {
             </Box>
           </div>
         ))}
+
         <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button>
+
+        {words.slice(0, 1000).map((w) => (
+          <div key={w.word}>{w.word}, </div>
+        ))}
       </>
     </Box>
   );

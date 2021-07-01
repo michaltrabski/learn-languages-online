@@ -15,6 +15,7 @@ import { darkTheme, lightTheme } from "./theme/theme";
 import PlayBtn from "./components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Home from "./pages/Home";
+import Item from "./pages/Item";
 
 function App() {
   const { theme } = useSelector((state: RootStoreType) => state.theme);
@@ -39,6 +40,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/:id">
+              <Item />
             </Route>
           </Switch>
         </WrapperContainer>

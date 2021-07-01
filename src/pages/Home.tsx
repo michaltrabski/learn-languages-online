@@ -12,6 +12,8 @@ import { useAudio } from "../hooks/useAudio";
 import PlayBtn from "../components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
+import VoteButtons from "../components/VoteButtons";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [sentences, setSentences] = useState<any[]>([]);
@@ -25,8 +27,8 @@ function Home() {
     fetch(longText)
       .then((res) => res.text())
       .then((text) => {
-        const normalizedText = getText(text);
-        setText(normalizedText.slice(0, 1100));
+        const normalizedText = getText(text.slice(0, 10000));
+        // setText(normalizedText.slice(0, 1100));
 
         // 2 get sentences
         const sentences = getSentences(normalizedText);
@@ -46,16 +48,22 @@ function Home() {
           <div key={i}>
             <Box mb={5}>
               <Typography variant="h6" gutterBottom>
-                {i + 1}. <PlayBtn />{" "}
-                <span data-mp3={item.word}>{item.word}</span>
+                {/* {i + 1}.  */}
+                <PlayBtn /> <span data-mp3={slug(item.word)}>{item.word}</span>
                 <Translation />
               </Typography>
+              <VoteButtons />
 
               {item.examples.map((example: string, i: number) => (
-                <Typography key={i} variant="subtitle2" gutterBottom>
-                  <PlayBtn /> <span data-mp3={example}>{example}</span>
-                  <Translation />
-                </Typography>
+                <>
+                  <Typography key={i} variant="subtitle2" gutterBottom>
+                    <PlayBtn />{" "}
+                    <Link to={to(slug(example))}>
+                      <span data-mp3={slug(example) + ".mp3"}>{example}</span>
+                    </Link>
+                    <Translation />
+                  </Typography>
+                </>
               ))}
             </Box>
           </div>
@@ -63,7 +71,7 @@ function Home() {
 
         <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button>
 
-        {words.slice(0, 1000).map((w) => (
+        {words.slice(0, 100).map((w) => (
           <span key={w.word}>{w.word}, </span>
         ))}
       </>

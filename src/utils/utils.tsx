@@ -112,7 +112,7 @@ const check = (sentence: string, first1000words: string[]) => {
   return true;
 };
 
-export const to = (slug: string) => `/en-pl/${slug}`;
+export const to = (slug: string) => `/${slug}`;
 
 export const slug = (text: string) => {
   return slugify(text, {

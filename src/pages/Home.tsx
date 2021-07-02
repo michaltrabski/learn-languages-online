@@ -13,7 +13,8 @@ import PlayBtn from "../components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
 import VoteButtons from "../components/VoteButtons";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 function Home() {
   const [sentences, setSentences] = useState<any[]>([]);
@@ -47,7 +48,7 @@ function Home() {
         {words.slice(0, limit).map((item: any, i: number) => (
           <div key={i}>
             <Box mb={5}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h4" component="h2" gutterBottom>
                 {/* {i + 1}.  */}
                 <PlayBtn /> <span data-mp3={slug(item.word)}>{item.word}</span>
                 <Translation />
@@ -56,10 +57,10 @@ function Home() {
 
               {item.examples.map((example: string, i: number) => (
                 <>
-                  <Typography key={i} variant="subtitle2" gutterBottom>
+                  <Typography key={i} variant="subtitle1" gutterBottom>
                     <PlayBtn />{" "}
-                    <Link to={to(slug(example))}>
-                      <span data-mp3={slug(example) + ".mp3"}>{example}</span>
+                    <Link to={to(slug(example))} component={RouterLink}>
+                      <span data-mp3={slug(example)}>{example}</span>
                     </Link>
                     <Translation />
                   </Typography>

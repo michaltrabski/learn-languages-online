@@ -5,7 +5,7 @@ interface State {
 }
 
 const initialTheme: State = {
-  theme: lightTheme,
+  theme: darkTheme,
 };
 
 const themeReducer = (state: State = initialTheme, action: any): State => {

@@ -17,10 +17,10 @@ export default function VoteButtons() {
 
   return (
     <div className={classes.root}>
-      <Button variant="contained" color="primary" size="small">
+      <Button variant="contained" color="primary">
         Znam
       </Button>
-      <Button variant="contained" color="secondary" size="small">
+      <Button variant="contained" color="secondary">
         Nie znam
       </Button>
     </div>

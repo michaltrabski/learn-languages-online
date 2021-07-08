@@ -15,36 +15,38 @@ import Translation from "../components/Translation";
 import VoteButtons from "../components/VoteButtons";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import axios from "axios";
+import { ENDPOINT } from "../settings/settings";
+
+export interface Word {
+  word: string;
+  count: number;
+  examples: string[];
+}
 
 function Home() {
-  const [sentences, setSentences] = useState<any[]>([]);
-  const [text, setText] = useState("Loading...");
-  const [words, setWords] = useState<any[]>([]);
+  const [words, setWords] = useState<Word[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [sound, setSound] = useState("");
   const { audioElement, controls } = useAudio(sound);
-  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
-    fetch(longText)
-      .then((res) => res.text())
-      .then((text) => {
-        const normalizedText = getText(text.slice(0, 10000));
-        // setText(normalizedText.slice(0, 1100));
-
-        // 2 get sentences
-        const sentences = getSentences(normalizedText);
-        // console.log(sentences);
-        setSentences(sentences);
-
-        // 3 get words
-        const words = getWords(normalizedText, sentences);
-        setWords(words);
-      });
+    (async () => {
+      try {
+        const { data } = await axios(`${ENDPOINT}/?slug=words-${currentPage}`);
+        console.log(data);
+        setWords(data);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   }, []);
 
   return (
     <Box>
       <>
+        {/* <pre>{JSON.stringify(words[0], null, 3)}</pre> */}
         {words.slice(0, limit).map((item: any, i: number) => (
           <div key={i}>
             <Box mb={5}>
@@ -56,15 +58,13 @@ function Home() {
               <VoteButtons />
 
               {item.examples.map((example: string, i: number) => (
-                <>
-                  <Typography key={i} variant="subtitle1" gutterBottom>
-                    <PlayBtn />{" "}
-                    <Link to={to(slug(example))} component={RouterLink}>
-                      <span data-mp3={slug(example)}>{example}</span>
-                    </Link>
-                    <Translation />
-                  </Typography>
-                </>
+                <Typography key={i} variant="subtitle1" gutterBottom>
+                  <PlayBtn />{" "}
+                  <Link to={to(slug(example))} component={RouterLink}>
+                    <span data-mp3={slug(example)}>{example}</span>
+                  </Link>
+                  <Translation />
+                </Typography>
               ))}
             </Box>
           </div>

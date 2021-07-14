@@ -18,25 +18,30 @@ import Link from "@material-ui/core/Link";
 import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
 
+interface WordExample {
+  sentence: string;
+  PL?: string;
+}
 export interface Word {
   word: string;
   count: number;
-  examples: string[];
+  examples: WordExample[];
 }
 
 function Home() {
   const [words, setWords] = useState<Word[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const [sound, setSound] = useState("");
-  const { audioElement, controls } = useAudio(sound);
+  // const [sound, setSound] = useState("");
+  // const { audioElement, controls } = useAudio(sound);
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios(`${ENDPOINT}/?slug=words-${currentPage}`);
+        const { currentPages, howManyPages, words } = data;
         console.log(data);
-        setWords(data);
+        setWords(words);
       } catch (err) {
         console.log(err);
       }
@@ -47,23 +52,24 @@ function Home() {
     <Box>
       <>
         {/* <pre>{JSON.stringify(words[0], null, 3)}</pre> */}
-        {words.slice(0, limit).map((item: any, i: number) => (
+        {words.slice(0, limit).map((item: Word, i: number) => (
           <div key={i}>
             <Box mb={5}>
               <Typography variant="h4" component="h2" gutterBottom>
-                {/* {i + 1}.  */}
                 <PlayBtn /> <span data-mp3={slug(item.word)}>{item.word}</span>
-                <Translation />
+                <Translation translatedText={"brak"} />
               </Typography>
               <VoteButtons />
 
-              {item.examples.map((example: string, i: number) => (
+              {item.examples.map((example: WordExample, i: number) => (
                 <Typography key={i} variant="subtitle1" gutterBottom>
                   <PlayBtn />{" "}
-                  <Link to={to(slug(example))} component={RouterLink}>
-                    <span data-mp3={slug(example)}>{example}</span>
+                  <Link to={to(slug(example.sentence))} component={RouterLink}>
+                    <span data-mp3={slug(example.sentence)}>
+                      {example.sentence}
+                    </span>
                   </Link>
-                  <Translation />
+                  <Translation translatedText={"brak"} />
                 </Typography>
               ))}
             </Box>
@@ -71,10 +77,6 @@ function Home() {
         ))}
 
         <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button>
-
-        {words.slice(0, 100).map((w) => (
-          <span key={w.word}>{w.word}, </span>
-        ))}
       </>
     </Box>
   );

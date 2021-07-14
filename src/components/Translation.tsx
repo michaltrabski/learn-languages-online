@@ -9,7 +9,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Translation = () => {
+interface Props {
+  translatedText: string | null | undefined;
+}
+const Translation = (props: Props) => {
   const classes = useStyles();
 
   const [show, setShow] = useState(false);
@@ -19,10 +22,10 @@ const Translation = () => {
       {show ? (
         <span>
           <PlayBtn />
-          To jest tłumaczenie
+          {props.translatedText}
         </span>
       ) : (
-        <span className={classes.pointer}>tłumaczenie</span>
+        <span className={classes.pointer}>pokaż tłumaczenie</span>
       )}
     </span>
   );

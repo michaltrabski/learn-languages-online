@@ -13,16 +13,23 @@ import PlayBtn from "../components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
 import VoteButtons from "../components/VoteButtons";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
 
+interface Word {
+  word: string;
+  PL?: string;
+}
 interface Sentence {
+  type: "sentence";
   slug: string;
+  mp3: string | null;
   source_lang: "EN";
   content: string;
-  transplations: { PL?: string };
-  words: string[];
+  words: Word[];
+  PL?: string;
 }
 function Item() {
   const [sentence, setSentence] = useState<Sentence | null>(null);
@@ -44,8 +51,28 @@ function Item() {
 
   return (
     <Box>
-      item
-      <pre>{JSON.stringify(sentence, null, 3)}</pre>
+      {/* <pre>{JSON.stringify(sentence, null, 3)}</pre> */}
+
+      {sentence && (
+        <Box mb={5}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            <PlayBtn />{" "}
+            <span data-mp3={slug(sentence.mp3)}>{sentence.content}</span>
+            <Translation translatedText={sentence["PL"]} />
+          </Typography>
+          <VoteButtons />
+
+          {sentence.words.map((word: Word, i: number) => (
+            <Typography key={i} variant="subtitle1" gutterBottom>
+              <PlayBtn />{" "}
+              <Link to={to(slug(word.word))} component={RouterLink}>
+                <span data-mp3={slug(word.word)}>{word.word}</span>
+              </Link>
+              <Translation translatedText={word["PL"]} />
+            </Typography>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }

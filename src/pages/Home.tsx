@@ -26,6 +26,7 @@ export interface Word {
   word: string;
   count: number;
   examples: WordExample[];
+  PL?: string;
 }
 
 function Home() {
@@ -52,12 +53,12 @@ function Home() {
     <Box>
       <>
         {/* <pre>{JSON.stringify(words[0], null, 3)}</pre> */}
-        {words.slice(0, limit).map((item: Word, i: number) => (
+        {words.map((item: Word, i: number) => (
           <div key={i}>
             <Box mb={5}>
               <Typography variant="h4" component="h2" gutterBottom>
                 <PlayBtn /> <span data-mp3={slug(item.word)}>{item.word}</span>
-                <Translation translatedText={"brak"} />
+                <Translation translatedText={item["PL"]} />
               </Typography>
               <VoteButtons />
 
@@ -69,14 +70,14 @@ function Home() {
                       {example.sentence}
                     </span>
                   </Link>
-                  <Translation translatedText={"brak"} />
+                  <Translation translatedText={example["PL"]} />
                 </Typography>
               ))}
             </Box>
           </div>
         ))}
-
-        <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button>
+        paginacja
+        {/* <Button onClick={() => setLimit((l) => l + 10)}>Pokaż więcej...</Button> */}
       </>
     </Box>
   );

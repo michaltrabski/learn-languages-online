@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import PlayBtn from "./PlayBtn";
+import TranslateIcon from "@material-ui/icons/Translate";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +27,18 @@ const Translation = (props: Props) => {
           {props.translatedText}
         </span>
       ) : (
-        <span className={classes.pointer}>pokaż tłumaczenie</span>
+        <>
+          {/* <span className={classes.pointer}>pokaż tłumaczenie</span> */}
+
+          <IconButton
+            color="secondary"
+            aria-label="upload picture"
+            component="span"
+            size="small"
+          >
+            <TranslateIcon />
+          </IconButton>
+        </>
       )}
     </span>
   );

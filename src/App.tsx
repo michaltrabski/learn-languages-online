@@ -16,11 +16,11 @@ import PlayBtn from "./components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Home from "./pages/Home";
 import Item from "./pages/Item";
+import Navbar from "./components/Navbar";
+import Voice from "./components/Voice";
 
 function App() {
   const { theme } = useSelector((state: RootStoreType) => state.theme);
-  const [sound, setSound] = useState("");
-  const { audioElement, controls } = useAudio(sound);
 
   // const changeSound = (slug: string) => {
   //   // console.log(slug);
@@ -36,15 +36,19 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <Navbar />
+        <Voice />
         <WrapperContainer>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/:id">
-              <Item />
-            </Route>
-          </Switch>
+          <>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/:id">
+                <Item />
+              </Route>
+            </Switch>
+          </>
         </WrapperContainer>
       </Router>
     </ThemeProvider>

@@ -49,26 +49,33 @@ function Home() {
     })();
   }, []);
 
+  // const play = (url: string) => {
+  //   console.log(url);
+  //   setSound(url);
+  // };
   return (
     <Box>
       <>
+        {/* {audioElement} */}
         {/* <pre>{JSON.stringify(words[0], null, 3)}</pre> */}
         {words.map((item: Word, i: number) => (
           <div key={i}>
             <Box mb={5}>
+              <VoteButtons />
+
               <Typography variant="h4" component="h2" gutterBottom>
-                <PlayBtn /> <span data-mp3={slug(item.word)}>{item.word}</span>
+                <PlayBtn slug={slug(item.word)} />
+                {/* <button onClick={() => play(item.word)}>PLAY</button> */}
+                <span>{item.word}</span>
                 <Translation translatedText={item["PL"]} />
               </Typography>
-              <VoteButtons />
 
               {item.examples.map((example: WordExample, i: number) => (
                 <Typography key={i} variant="subtitle1" gutterBottom>
-                  <PlayBtn />{" "}
+                  <PlayBtn slug={slug(example.sentence)} />
+                  {/* <button onClick={() => play(example.sentence)}>PLAY</button> */}
                   <Link to={to(slug(example.sentence))} component={RouterLink}>
-                    <span data-mp3={slug(example.sentence)}>
-                      {example.sentence}
-                    </span>
+                    <span>{example.sentence}</span>
                   </Link>
                   <Translation translatedText={example["PL"]} />
                 </Typography>

@@ -1,6 +1,7 @@
 import { createElement, useEffect, useRef, useState } from "react";
+import { slug } from "../utils/utils";
 
-export const useAudio = (slug: string) => {
+export const useAudio = (url: string) => {
   const [state, setState] = useState({
     ready: false,
     paused: true,
@@ -17,9 +18,9 @@ export const useAudio = (slug: string) => {
   const ref = useRef<HTMLAudioElement | null>(null);
 
   const audioElement = createElement("audio", {
-    src: `https://poznaj-testy.hekko24.pl/en/${slug}.mp3`,
+    src: url,
     ref,
-    controls: true,
+    controls: false,
     onPlay: () => () => {
       console.log("onPlay");
     },
@@ -74,7 +75,7 @@ export const useAudio = (slug: string) => {
     const audio = ref.current;
     if (!audio) return;
     audio.play();
-  }, [slug]);
+  }, [url]);
 
   //   useEffect(() => {
   //     setState((s) => ({ ...s, ready: false }));

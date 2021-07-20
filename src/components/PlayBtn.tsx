@@ -10,12 +10,15 @@ import { ChangeVoice } from "../redux/actions/voiceAction";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      padding: theme.spacing(0.5),
       "& > *": {
-        margin: theme.spacing(1),
+        // marginBottom: theme.spacing(0),
       },
-    },
-    input: {
-      display: "none",
+      "& > span > svg": {
+        // color: "red",
+        width: "2.0em",
+        height: "2.0em",
+      },
     },
   })
 );
@@ -35,10 +38,10 @@ export default function PlayBtn(props: Props) {
   };
   return (
     <IconButton
+      className={classes.root}
       color={props?.color ? props.color : "primary"}
       aria-label="upload picture"
       component="span"
-      size="small"
       disabled={props.slug ? false : true}
       onClick={() => play(props.slug)}
     >

@@ -65,20 +65,29 @@ function Home() {
 
               <Typography variant="h4" component="h2" gutterBottom>
                 <PlayBtn slug={slug(item.word)} />
-                {/* <button onClick={() => play(item.word)}>PLAY</button> */}
-                <span>{item.word}</span>
+                {item.word}
                 <Translation translatedText={item["PL"]} />
               </Typography>
+              {/* <Typography variant="h6" component="h3" gutterBottom>
+                <Translation translatedText={item["PL"]} />
+              </Typography> */}
 
               {item.examples.map((example: WordExample, i: number) => (
-                <Typography key={i} variant="subtitle1" gutterBottom>
-                  <PlayBtn slug={slug(example.sentence)} />
-                  {/* <button onClick={() => play(example.sentence)}>PLAY</button> */}
-                  <Link to={to(slug(example.sentence))} component={RouterLink}>
-                    <span>{example.sentence}</span>
-                  </Link>
-                  <Translation translatedText={example["PL"]} />
-                </Typography>
+                <Box mb={2} key={i}>
+                  <Typography key={i} variant="subtitle1" gutterBottom>
+                    <PlayBtn slug={slug(example.sentence)} />
+                    <Link
+                      to={to(slug(example.sentence))}
+                      component={RouterLink}
+                    >
+                      {example.sentence}
+                    </Link>
+                    <Translation translatedText={example["PL"]} />
+                  </Typography>
+                  {/* <Typography key={i} variant="subtitle2" gutterBottom>
+                    <Translation translatedText={example["PL"]} />
+                  </Typography> */}
+                </Box>
               ))}
             </Box>
           </div>

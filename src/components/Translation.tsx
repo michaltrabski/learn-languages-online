@@ -20,16 +20,13 @@ const Translation = (props: Props) => {
   const [show, setShow] = useState(false);
   return (
     <span className={classes.root} onClick={() => setShow(true)}>
-      {" "}
       {show ? (
         <span>
-          <PlayBtn />
+          {/* <PlayBtn /> */}
           {props.translatedText}
         </span>
       ) : (
         <>
-          {/* <span className={classes.pointer}>pokaż tłumaczenie</span> */}
-
           <IconButton
             color="secondary"
             aria-label="upload picture"
@@ -38,6 +35,7 @@ const Translation = (props: Props) => {
           >
             <TranslateIcon />
           </IconButton>
+          {/* <span className={classes.pointer}>pokaż tłumaczenie</span> */}
         </>
       )}
     </span>

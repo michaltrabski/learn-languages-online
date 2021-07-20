@@ -69,17 +69,23 @@ function Item() {
             <span>{content.content}</span>
             <Translation translatedText={content["PL"]} />
           </Typography>
+          {/* <Typography variant="h4" component="h2" gutterBottom>
+            <Translation translatedText={content["PL"]} />
+          </Typography> */}
 
+          <p>Check out each words:</p>
           {content.type === "sentence" &&
             content.words &&
             content.words.map((word, i) => (
-              <Typography key={i} variant="subtitle1" gutterBottom>
-                <PlayBtn slug={slug(word.word)} />
-                <Link to={to(slug(word.word))} component={RouterLink}>
-                  <span>{word.word}</span>
-                </Link>
-                <Translation translatedText={word["PL"]} />
-              </Typography>
+              <>
+                <Typography key={i} variant="subtitle1" gutterBottom>
+                  <PlayBtn slug={slug(word.word)} />
+                  <Link to={to(slug(word.word))} component={RouterLink}>
+                    <span>{word.word}</span>
+                  </Link>
+                  <Translation translatedText={word["PL"]} />
+                </Typography>
+              </>
             ))}
         </Box>
       )}

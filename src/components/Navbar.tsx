@@ -39,7 +39,7 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Fast Learning App
+            LearnMe
           </Typography>
           <Button color="inherit">Login</Button>
           <Button color="inherit" onClick={() => history.push("/")}>

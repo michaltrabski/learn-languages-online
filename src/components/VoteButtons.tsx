@@ -18,10 +18,10 @@ export default function VoteButtons() {
   return (
     <div className={classes.root}>
       <Button variant="contained" color="primary">
-        Znam
+        Znam to słowo
       </Button>
       <Button variant="contained" color="secondary">
-        Nie znam
+        Nie znam słowa
       </Button>
     </div>
   );

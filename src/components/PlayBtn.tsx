@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
     small: {
       "& > span > svg": {
         // color: "red",
-        width: "1.0em",
-        height: "1.0em",
+        width: "1.5em",
+        height: "1.5em",
       },
     },
   })

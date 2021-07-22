@@ -17,6 +17,7 @@ import Link from "@material-ui/core/Link";
 import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
 import ShowTranslationButton from "../components/ShowTranslationButton";
+import { AddBox } from "@material-ui/icons";
 
 interface WordExample {
   sentence: string;
@@ -114,7 +115,7 @@ function Home() {
               </Typography> */}
 
               {item.examples.map((example: WordExample, i: number) => (
-                <Box mb={2} key={i}>
+                <Box mb={1} key={i}>
                   <Typography
                     key={i}
                     variant="subtitle1"
@@ -137,44 +138,43 @@ function Home() {
                     />
                   </Typography>
                   {moreDetails[slug(example.sentence)] && (
-                    <>
-                      <Translation
-                        translatedText={example["PL"]}
-                        showImmediately={true}
-                      />
+                    <Box mb={5} className={classes.backgroundDarker}>
+                      <Box p={2}>
+                        <Typography variant="subtitle1" gutterBottom>
+                          <Translation
+                            translatedText={example["PL"]}
+                            showImmediately={true}
+                          />
+                        </Typography>
+                      </Box>
                       {/* <Typography variant="subtitle2" gutterBottom>
                         This is more info about this sentence:
-                      </Typography> */}
+                      </Typography> */}{" "}
                       {true &&
                         moreDetails[`${slug(example.sentence)}_words`] &&
                         moreDetails[`${slug(example.sentence)}_words`].map(
                           (item: any) => (
-                            <>
-                              <Grid
-                                container
-                                spacing={1}
-                                className={classes.alignItemsCenter}
-                              >
-                                <Grid item xs={5}>
-                                  <PlayBtn
-                                    slug={slug(item.word)}
-                                    size="small"
-                                  />
-                                  <Link
-                                    to={to(slug(item.word))}
-                                    component={RouterLink}
-                                  >
-                                    {item.word}
-                                  </Link>
-                                </Grid>
-                                <Grid item xs={7}>
-                                  {item["PL"]}
-                                </Grid>
+                            <Grid
+                              container
+                              spacing={1}
+                              className={classes.alignItemsCenter}
+                            >
+                              <Grid item xs={5}>
+                                <PlayBtn slug={slug(item.word)} size="small" />
+                                <Link
+                                  to={to(slug(item.word))}
+                                  component={RouterLink}
+                                >
+                                  {item.word}
+                                </Link>
                               </Grid>
-                            </>
+                              <Grid item xs={7}>
+                                - {item["PL"]}
+                              </Grid>
+                            </Grid>
                           )
                         )}
-                    </>
+                    </Box>
                   )}
                   {/* <Typography key={i} variant="subtitle2" gutterBottom>
                     <Translation translatedText={example["PL"]} />
@@ -193,7 +193,7 @@ function Home() {
             fullWidth
             onClick={showMorePages}
           >
-            Show more!!!
+            Pokaż więcej!!!
           </Button>
         )}
       </>
@@ -208,6 +208,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     alignItemsCenter: {
       alignItems: "center",
+    },
+    backgroundDarker: {
+      backgroundColor: "#303030",
     },
   })
 );

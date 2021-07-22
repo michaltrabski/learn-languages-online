@@ -13,11 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   translatedText: string | null | undefined;
+  showImmediately?: boolean;
 }
 const Translation = (props: Props) => {
   const classes = useStyles();
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(props.showImmediately ? true : false);
   return (
     <span className={classes.root} onClick={() => setShow(true)}>
       {show ? (

@@ -20,12 +20,12 @@ export default function VoteButtons() {
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" fullWidth>
+          <Button variant="contained" color="primary" fullWidth size="small">
             Znam to słowo
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="contained" color="secondary" fullWidth>
+          <Button variant="contained" color="secondary" fullWidth size="small">
             Nie znam słowa
           </Button>
         </Grid>

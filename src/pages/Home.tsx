@@ -5,18 +5,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import _ from "lodash";
 
-import { Box, Typography } from "@material-ui/core";
+import { Box, Grid, Typography, Button } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { getSentences, getText, getWords, slug, to } from "../utils/utils";
 import { useAudio } from "../hooks/useAudio";
-
 import PlayBtn from "../components/PlayBtn";
-import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
 import VoteButtons from "../components/VoteButtons";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
+import ShowTranslationButton from "../components/ShowTranslationButton";
 
 interface WordExample {
   sentence: string;
@@ -36,6 +36,8 @@ interface Data {
 }
 
 function Home() {
+  const classes = useStyles();
+
   const [words, setWords] = useState<Word[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [howManyPages, setHowManyPages] = useState(0);
@@ -129,20 +131,47 @@ function Home() {
                     <span onClick={() => loadDetail(slug(example.sentence))}>
                       {example.sentence}
                     </span>
-                    <Translation translatedText={example["PL"]} />
+                    <ShowTranslationButton
+                      loadDetail={loadDetail}
+                      slug={slug(example.sentence)}
+                    />
                   </Typography>
                   {moreDetails[slug(example.sentence)] && (
                     <>
-                      <Typography variant="subtitle2" gutterBottom>
+                      <Translation
+                        translatedText={example["PL"]}
+                        showImmediately={true}
+                      />
+                      {/* <Typography variant="subtitle2" gutterBottom>
                         This is more info about this sentence:
-                      </Typography>
+                      </Typography> */}
                       {true &&
                         moreDetails[`${slug(example.sentence)}_words`] &&
                         moreDetails[`${slug(example.sentence)}_words`].map(
                           (item: any) => (
-                            <p>
-                              {item.word} | {item["PL"]}
-                            </p>
+                            <>
+                              <Grid
+                                container
+                                spacing={1}
+                                className={classes.alignItemsCenter}
+                              >
+                                <Grid item xs={5}>
+                                  <PlayBtn
+                                    slug={slug(item.word)}
+                                    size="small"
+                                  />
+                                  <Link
+                                    to={to(slug(item.word))}
+                                    component={RouterLink}
+                                  >
+                                    {item.word}
+                                  </Link>
+                                </Grid>
+                                <Grid item xs={7}>
+                                  {item["PL"]}
+                                </Grid>
+                              </Grid>
+                            </>
                           )
                         )}
                     </>
@@ -174,5 +203,13 @@ function Home() {
     </Box>
   );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    alignItemsCenter: {
+      alignItems: "center",
+    },
+  })
+);
 
 export default Home;

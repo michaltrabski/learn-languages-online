@@ -13,7 +13,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(0.2),
       "& > *": {
         // marginBottom: theme.spacing(0),
       },

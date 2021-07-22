@@ -138,8 +138,8 @@ function Home() {
                     />
                   </Typography>
                   {moreDetails[slug(example.sentence)] && (
-                    <Box mb={5} className={classes.backgroundDarker}>
-                      <Box p={2}>
+                    <Box p={1} mb={5} className={classes.backgroundDarker}>
+                      <Box>
                         <Typography variant="subtitle1" gutterBottom>
                           <Translation
                             translatedText={example["PL"]}
@@ -159,16 +159,21 @@ function Home() {
                               spacing={1}
                               className={classes.alignItemsCenter}
                             >
-                              <Grid item xs={5}>
+                              <Grid item xs={8}>
                                 <PlayBtn slug={slug(item.word)} size="small" />
-                                <Link
-                                  to={to(slug(item.word))}
-                                  component={RouterLink}
+                                <Typography
+                                  variant="subtitle1"
+                                  component="span"
                                 >
-                                  {item.word}
-                                </Link>
+                                  <Link
+                                    to={to(slug(item.word))}
+                                    component={RouterLink}
+                                  >
+                                    {item.word}
+                                  </Link>
+                                </Typography>
                               </Grid>
-                              <Grid item xs={7}>
+                              <Grid item xs={4}>
                                 - {item["PL"]}
                               </Grid>
                             </Grid>

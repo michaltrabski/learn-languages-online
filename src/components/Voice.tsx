@@ -9,6 +9,40 @@ import { RootStoreType } from "../redux/store/store";
 import { useAudio } from "../hooks/useAudio";
 import { changeAudioState } from "../redux/actions/voiceAction";
 
+export default function Voice() {
+  const { voice } = useSelector((state: RootStoreType) => state);
+  const { url, slug, playVoice, pauseVoice } = useSelector(
+    (state: RootStoreType) => state.voice
+  );
+  const { audioElement, audioState, controls } = useAudio(`${url}${slug}.mp3`);
+  const dispatch = useDispatch();
+  const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(changeAudioState(audioState));
+    // setTimeout(() => {
+    //   controls.pause();
+    // }, 600);
+  }, [audioState]);
+
+  // PLAY VOICE
+  useEffect(() => {
+    if (playVoice) controls.play();
+  }, [playVoice]);
+
+  // PAUSE VOICE
+  useEffect(() => {
+    if (pauseVoice) controls.pause();
+  }, [pauseVoice]);
+
+  return (
+    <div>
+      {/* <pre>{JSON.stringify(voice, null, 3)}</pre> */}
+      {audioElement}
+    </div>
+  );
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -21,24 +55,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-export default function Voice() {
-  const { url, slug } = useSelector((state: RootStoreType) => state.voice);
-  const { audioElement, audioState } = useAudio(`${url}${slug}.mp3`);
-  const dispatch = useDispatch();
-  const classes = useStyles();
-
-  useEffect(() => {
-    dispatch(changeAudioState(audioState));
-  }, [audioState]);
-
-  return (
-    <div>
-      VOICE = {url}
-      {slug}.mp3
-      <br />
-      <pre>{JSON.stringify(audioState, null, 3)}</pre>
-      {audioElement}
-    </div>
-  );
-}

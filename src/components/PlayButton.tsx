@@ -27,7 +27,7 @@ export default function PlayButton(props: Props) {
 
   return (
     <>
-      <IconButton
+      {/* <IconButton
         className={classes.root}
         color="primary"
         aria-label="upload picture"
@@ -35,7 +35,7 @@ export default function PlayButton(props: Props) {
         onClick={() => changeSound(slug)}
       >
         <PlayCircleFilledWhiteTwoToneIcon />
-      </IconButton>
+      </IconButton> */}
     </>
   );
 }

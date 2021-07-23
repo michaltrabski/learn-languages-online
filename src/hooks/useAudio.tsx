@@ -5,7 +5,7 @@ const defaultAudioState = {
   playing: false,
   ended: false,
   waiting: false,
-
+  pause: false,
   duration: 0,
 };
 export const useAudio = (url: string) => {
@@ -23,6 +23,11 @@ export const useAudio = (url: string) => {
     },
     onPause: () => {
       console.log("onPause");
+      setAudioState((s) => ({
+        ...s,
+        playing: false,
+        pause: true,
+      }));
     },
     onWaiting: () => {
       console.log("onWaiting");
@@ -35,17 +40,28 @@ export const useAudio = (url: string) => {
         playing: true,
         waiting: false,
         ended: false,
+        pause: false,
       }));
     },
-    onLoadedData: () => {
+    onLoadedData: (data: any) => {
       const audio = ref.current;
       if (!audio) return;
+      const { duration } = data.target;
+      setAudioState((s) => ({
+        ...s,
+        duration,
+      }));
     },
     onEnded: () => {
       // const audio = ref.current;
       // if (!audio) return;
       console.log("onEnded");
-      setAudioState((s) => ({ ...s, playing: false, ended: true }));
+      setAudioState((s) => ({
+        ...s,
+        playing: false,
+        ended: true,
+        pause: false,
+      }));
     },
     onTimeUpdate: () => {
       const audio = ref.current;

@@ -5,15 +5,17 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangeVoice } from "../redux/actions/voiceAction";
 import AddIcon from "@material-ui/icons/Add";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { RootStoreType } from "../redux/store/store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(0.2),
+      padding: theme.spacing(0),
+      marginRight: theme.spacing(0.25),
       "& > *": {
         // marginBottom: theme.spacing(0),
       },
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
     small: {
       "& > span > svg": {
         // color: "red",
-        width: "1.5em",
-        height: "1.5em",
+        width: "2.0em",
+        height: "2.0em",
       },
     },
   })
@@ -48,6 +50,10 @@ interface Props {
 
 export default function PlayBtn(props: Props) {
   const classes = useStyles();
+
+  const { slug, audioState } = useSelector(
+    (state: RootStoreType) => state.voice
+  );
   const dispatch = useDispatch();
 
   const size = props.size || "normal";
@@ -57,18 +63,11 @@ export default function PlayBtn(props: Props) {
     console.log(slug);
     if (slug) dispatch(ChangeVoice(slug));
   };
+
   return (
     <>
-      <IconButton
-        className={clsx(classes.root, classes[size])}
-        color={props?.color ? props.color : "primary"}
-        aria-label="upload picture"
-        component="span"
-        disabled={props.slug ? false : true}
-        onClick={() => play(props.slug)}
-      >
-        <PlayCircleOutlineIcon />
-      </IconButton>
+      {/* <pre>{JSON.stringify(slug, null, 3)}</pre> */}
+
       <IconButton
         className={clsx(classes.root, classes["small"])}
         color="secondary"
@@ -77,6 +76,25 @@ export default function PlayBtn(props: Props) {
       >
         <AddCircleOutlineIcon />
       </IconButton>
+      {audioState.playing && slug === props.slug ? (
+        <>
+          <br />
+          {slug}
+          <br />
+          {props.slug}
+        </>
+      ) : (
+        <IconButton
+          className={clsx(classes.root, classes[size])}
+          color={props?.color ? props.color : "primary"}
+          aria-label="upload picture"
+          component="span"
+          disabled={props.slug ? false : true}
+          onClick={() => play(props.slug)}
+        >
+          <PlayCircleOutlineIcon />
+        </IconButton>
+      )}
     </>
   );
 }

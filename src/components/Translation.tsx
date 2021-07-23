@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import PlayBtn from "./PlayBtn";
 import TranslateIcon from "@material-ui/icons/Translate";
 import { IconButton } from "@material-ui/core";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,10 +23,14 @@ const Translation = (props: Props) => {
   return (
     <span className={classes.root} onClick={() => setShow(true)}>
       {show ? (
-        <span>
-          {/* <PlayBtn /> */}
-          {props.translatedText}
-        </span>
+        <>
+          <span> - </span>
+          {/* <ArrowRightAltIcon /> */}
+          <span>
+            {/* <PlayBtn /> */}
+            {props.translatedText}
+          </span>
+        </>
       ) : (
         <>
           <IconButton

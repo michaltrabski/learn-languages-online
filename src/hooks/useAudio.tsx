@@ -1,19 +1,15 @@
 import { createElement, useEffect, useRef, useState } from "react";
 import { slug } from "../utils/utils";
 
+const defaultAudioState = {
+  playing: false,
+  ended: false,
+  waiting: false,
+
+  duration: 0,
+};
 export const useAudio = (url: string) => {
-  const [state, setState] = useState({
-    ready: false,
-    paused: true,
-    waiting: false,
-    autoplay: false,
-    currentTime: 0,
-    duration: 0,
-    buffered: {
-      start: 0,
-      end: 0,
-    },
-  });
+  const [audioState, setAudioState] = useState(defaultAudioState);
 
   const ref = useRef<HTMLAudioElement | null>(null);
 
@@ -23,23 +19,33 @@ export const useAudio = (url: string) => {
     controls: false,
     onPlay: () => () => {
       console.log("onPlay");
+      // setAudioState((s) => ({ ...s, onPlay: true }));
     },
     onPause: () => {
       console.log("onPause");
     },
     onWaiting: () => {
       console.log("onWaiting");
+      setAudioState((s) => ({ ...s, playing: false, waiting: true }));
     },
     onPlaying: () => {
       console.log("onPlaying");
+      setAudioState((s) => ({
+        ...s,
+        playing: true,
+        waiting: false,
+        ended: false,
+      }));
     },
     onLoadedData: () => {
       const audio = ref.current;
       if (!audio) return;
     },
     onEnded: () => {
-      const audio = ref.current;
-      if (!audio) return;
+      // const audio = ref.current;
+      // if (!audio) return;
+      console.log("onEnded");
+      setAudioState((s) => ({ ...s, playing: false, ended: true }));
     },
     onTimeUpdate: () => {
       const audio = ref.current;
@@ -67,7 +73,7 @@ export const useAudio = (url: string) => {
     //   audio.play();
     // },
     // changeFile: (fileNameIndex: number) => {
-    //   setState((s) => ({ ...s, fileNameIndex }));
+    //   setAudioState((s) => ({ ...s, fileNameIndex }));
     // },
   };
 
@@ -78,15 +84,14 @@ export const useAudio = (url: string) => {
   }, [url]);
 
   //   useEffect(() => {
-  //     setState((s) => ({ ...s, ready: false }));
-  //     if (state.duration > 0) setState((s) => ({ ...s, ready: true }));
+  //     setAudioState((s) => ({ ...s, ready: false }));
+  //     if (state.duration > 0) setAudioState((s) => ({ ...s, ready: true }));
   //   }, [src, state.duration]);
 
   return {
     audioElement,
-    state,
-    setState,
+    audioState,
+    setAudioState,
     controls,
-    ready: state.ready,
   };
 };

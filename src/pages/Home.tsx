@@ -84,8 +84,8 @@ function Home() {
     setMoreDetails((d: any) => ({ ...d, [slug]: show }));
     try {
       const response = await axios(`${ENDPOINT}/?slug=${slug}`);
+      console.log(response.data);
       const { words } = response.data;
-      // console.log(response.data.words);
       setMoreDetails((d: any) => ({
         ...d,
         [`${slug}_words`]: words,
@@ -98,12 +98,13 @@ function Home() {
   return (
     <Box>
       <>
+        {/* <pre>{JSON.stringify(moreDetails, null, 3)}</pre> */}
         {/* {audioElement} */}
         {/* <pre>{JSON.stringify(words[0], null, 3)}</pre> */}
         {words.map((item: Word, i: number) => (
           <div key={i}>
             <Box mb={5}>
-              <VoteButtons />
+              {/* <VoteButtons /> */}
 
               <Typography variant="h4" component="h2" gutterBottom>
                 <PlayBtn slug={slug(item.word)} />
@@ -132,10 +133,10 @@ function Home() {
                     <span onClick={() => loadDetail(slug(example.sentence))}>
                       {example.sentence}
                     </span>
-                    <ShowTranslationButton
+                    {/* <ShowTranslationButton
                       loadDetail={loadDetail}
                       slug={slug(example.sentence)}
-                    />
+                    /> */}
                   </Typography>
                   {moreDetails[slug(example.sentence)] && (
                     <Box p={1} mb={5} className={classes.backgroundDarker}>
@@ -156,21 +157,28 @@ function Home() {
                           (item: any) => (
                             <Grid
                               container
-                              spacing={1}
+                              spacing={3}
                               className={classes.alignItemsCenter}
                             >
+                              {/* <Grid item>sssssssssssssssssssssssssssssss</Grid> */}
                               <Grid item xs={8}>
                                 <PlayBtn slug={slug(item.word)} size="small" />
                                 <Typography
                                   variant="subtitle1"
                                   component="span"
+                                  color="primary"
                                 >
-                                  <Link
+                                  {/* <Link
                                     to={to(slug(item.word))}
                                     component={RouterLink}
                                   >
                                     {item.word}
-                                  </Link>
+                                  </Link> */}
+                                  <span
+                                    onClick={() => loadDetail(slug(item.word))}
+                                  >
+                                    {item.word}
+                                  </span>
                                 </Typography>
                               </Grid>
                               <Grid item xs={4}>

@@ -14,7 +14,7 @@ export default function WrapperContainer(props: Props) {
     <div className={classes.root}>
       <CssBaseline />
       <Container>
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>{props.children}</Paper>
           </Grid>

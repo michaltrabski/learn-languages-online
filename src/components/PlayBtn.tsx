@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(0),
-      marginRight: theme.spacing(0.25),
+      marginRight: theme.spacing(0.5),
       "& > *": {
         // marginBottom: theme.spacing(0),
       },

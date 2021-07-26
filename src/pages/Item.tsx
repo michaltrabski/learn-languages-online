@@ -13,7 +13,7 @@ import PlayBtn from "../components/PlayBtn";
 import { Button } from "@material-ui/core";
 import Translation from "../components/Translation";
 import VoteButtons from "../components/VoteButtons";
-import { useParams, Link as RouterLink } from "react-router-dom";
+import { useParams, Link as RouterLink, useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
@@ -36,6 +36,7 @@ interface Content {
 function Item() {
   const [loading, setLoading] = useState("LOADING...");
   const [content, setContent] = useState<Content | null>(null);
+  let history = useHistory();
   let { id } = useParams<{ id?: string }>();
 
   useEffect(() => {
@@ -87,6 +88,10 @@ function Item() {
                 </Typography>
               </>
             ))}
+
+          <button onClick={() => history.goBack()}>
+            Wróć do poprzedniej strony.
+          </button>
         </Box>
       )}
     </Box>

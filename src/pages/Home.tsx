@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import _ from "lodash";
 
-import { Box, Grid, Typography, Button } from "@material-ui/core";
+import { Box, Grid, Typography, Button, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { getSentences, getText, getWords, slug, to } from "../utils/utils";
 import { useAudio } from "../hooks/useAudio";
@@ -18,11 +18,13 @@ import axios from "axios";
 import { ENDPOINT } from "../settings/settings";
 import ShowTranslationButton from "../components/ShowTranslationButton";
 import { AddBox } from "@material-ui/icons";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 interface WordExample {
   sentence: string;
   PL?: string;
 }
+
 export interface Word {
   word: string;
   count: number;
@@ -47,6 +49,10 @@ function Home() {
   // const [limit, setLimit] = useState(5);
   // const [sound, setSound] = useState("");
   // const { audioElement, controls } = useAudio(sound);
+
+  useEffect(() => {
+    console.log("Home useEffect");
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -117,27 +123,40 @@ function Home() {
 
               {item.examples.map((example: WordExample, i: number) => (
                 <Box mb={1} key={i}>
-                  <Typography
-                    key={i}
-                    variant="subtitle1"
-                    gutterBottom
-                    color="primary"
-                  >
-                    <PlayBtn slug={slug(example.sentence)} />
-                    {/* <Link
+                  <Box className={classes.h2}>
+                    <Typography
+                      className={classes.h2_inner}
+                      key={i}
+                      variant="subtitle1"
+                      color="primary"
+                    >
+                      <PlayBtn slug={slug(example.sentence)} />
+                      {/* <Link
                       to={to(slug(example.sentence))}
                       component={RouterLink}
                     >
                       {example.sentence}
                     </Link> */}
-                    <span onClick={() => loadDetail(slug(example.sentence))}>
-                      {example.sentence}
-                    </span>
-                    {/* <ShowTranslationButton
+                      <span
+                        className={classes.pointer}
+                        onClick={() => loadDetail(slug(example.sentence))}
+                      >
+                        {example.sentence}
+                      </span>
+                      {/* <ShowTranslationButton
                       loadDetail={loadDetail}
                       slug={slug(example.sentence)}
                     /> */}
-                  </Typography>
+                    </Typography>
+                    <IconButton
+                      color="secondary"
+                      aria-label="usun"
+                      component="span"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
+
                   {moreDetails[slug(example.sentence)] && (
                     <Box p={1} mb={5} className={classes.backgroundDarker}>
                       <Box>
@@ -155,36 +174,77 @@ function Home() {
                         moreDetails[`${slug(example.sentence)}_words`] &&
                         moreDetails[`${slug(example.sentence)}_words`].map(
                           (item: any) => (
-                            <Grid
-                              container
-                              spacing={3}
-                              className={classes.alignItemsCenter}
-                            >
-                              {/* <Grid item>sssssssssssssssssssssssssssssss</Grid> */}
-                              <Grid item xs={8}>
+                            // <Grid
+                            //   container
+                            //   spacing={3}
+                            //   className={classes.alignItemsCenter}
+                            // >
+                            //   <Grid item xs={8}>
+                            //     <Box className={classes.h2}>
+                            //       <PlayBtn
+                            //         slug={slug(item.word)}
+                            //         size="small"
+                            //       />
+                            //       <Typography
+                            //         variant="subtitle1"
+                            //         component="span"
+                            //         color="primary"
+                            //       >
+                            //         {/* <Link
+                            //         to={to(slug(item.word))}
+                            //         component={RouterLink}
+                            //       >
+                            //         {item.word}
+                            //       </Link> */}
+                            //         <span
+                            //           onClick={() =>
+                            //             loadDetail(slug(item.word))
+                            //           }
+                            //         >
+                            //           {item.word}
+                            //         </span>
+                            //         ssssssss
+                            //       </Typography>
+                            //     </Box>
+                            //   </Grid>
+                            //   <Grid item xs={4}>
+                            //     - {item["PL"]}
+                            //   </Grid>
+                            // </Grid>
+                            <Box className={classes.h2}>
+                              <Box className={classes.h2_inner}>
                                 <PlayBtn slug={slug(item.word)} size="small" />
                                 <Typography
                                   variant="subtitle1"
                                   component="span"
                                   color="primary"
                                 >
-                                  {/* <Link
+                                  <Link
                                     to={to(slug(item.word))}
                                     component={RouterLink}
                                   >
                                     {item.word}
-                                  </Link> */}
-                                  <span
+                                  </Link>
+                                  {/* <span
                                     onClick={() => loadDetail(slug(item.word))}
                                   >
                                     {item.word}
-                                  </span>
+                                  </span> */}
                                 </Typography>
-                              </Grid>
-                              <Grid item xs={4}>
-                                - {item["PL"]}
-                              </Grid>
-                            </Grid>
+                                <span style={{ marginLeft: "4px" }}>
+                                  {" "}
+                                  - {item["PL"]}, {item["PL"]},{" "}
+                                  {item["PL"].slice(0, 3)}...
+                                </span>
+                              </Box>
+                              <IconButton
+                                color="secondary"
+                                aria-label="usun"
+                                component="span"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Box>
                           )
                         )}
                     </Box>
@@ -224,6 +284,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     backgroundDarker: {
       backgroundColor: "#303030",
+    },
+    h2: {
+      display: "flex",
+      alignItems: "center",
+      // backgroundColor: "red",
+      justifyContent: "space-between",
+    },
+    h2_inner: {
+      display: "flex",
+      alignItems: "center",
+      // backgroundColor: "blue",
+    },
+    pointer: {
+      cursor: "pointer",
     },
   })
 );

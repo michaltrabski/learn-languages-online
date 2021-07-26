@@ -110,17 +110,26 @@ function Home() {
         {words.map((item: Word, i: number) => (
           <div key={i}>
             <Box mb={5}>
-              {/* <VoteButtons /> */}
-
-              <Typography variant="h4" component="h2" gutterBottom>
-                <PlayBtn slug={slug(item.word)} />
-                {item.word}
-                <Translation translatedText={item["PL"]} />
-              </Typography>
+              <Box mb={1} className={classes.h2}>
+                <Box className={classes.h2_inner}>
+                  {/* <VoteButtons /> */}
+                  <Typography variant="h4" component="h2">
+                    <PlayBtn slug={slug(item.word)} />
+                    {item.word}
+                    <Translation translatedText={item["PL"]} />
+                  </Typography>
+                </Box>
+                <IconButton
+                  color="secondary"
+                  aria-label="usun"
+                  component="span"
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
               {/* <Typography variant="h6" component="h3" gutterBottom>
                 <Translation translatedText={item["PL"]} />
               </Typography> */}
-
               {item.examples.map((example: WordExample, i: number) => (
                 <Box mb={1} key={i}>
                   <Box className={classes.h2}>
@@ -148,24 +157,26 @@ function Home() {
                       slug={slug(example.sentence)}
                     /> */}
                     </Typography>
-                    <IconButton
+                    {/* <IconButton
                       color="secondary"
                       aria-label="usun"
                       component="span"
                     >
                       <DeleteIcon />
-                    </IconButton>
+                    </IconButton> */}
                   </Box>
 
                   {moreDetails[slug(example.sentence)] && (
-                    <Box p={1} mb={5} className={classes.backgroundDarker}>
-                      <Box>
-                        <Typography variant="subtitle1" gutterBottom>
-                          <Translation
-                            translatedText={example["PL"]}
-                            showImmediately={true}
-                          />
-                        </Typography>
+                    <Box p={1} mt={0.5} className={classes.backgroundDarker}>
+                      <Box className={classes.h2}>
+                        <Box className={classes.h2_inner}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            <Translation
+                              translatedText={example["PL"]}
+                              showImmediately={true}
+                            />
+                          </Typography>
+                        </Box>{" "}
                       </Box>
                       {/* <Typography variant="subtitle2" gutterBottom>
                         This is more info about this sentence:
@@ -237,13 +248,13 @@ function Home() {
                                   {item["PL"].slice(0, 3)}...
                                 </span>
                               </Box>
-                              <IconButton
+                              {/* <IconButton
                                 color="secondary"
                                 aria-label="usun"
                                 component="span"
                               >
                                 <DeleteIcon />
-                              </IconButton>
+                              </IconButton> */}
                             </Box>
                           )
                         )}

@@ -1,19 +1,23 @@
-import { darkTheme, lightTheme } from "../../theme/theme";
+import { darkTheme, lightTheme, theme } from "../../theme/theme";
+import { ThemeDispatchTypes } from "../actions/themeAction";
 
-interface State {
-  theme: typeof lightTheme;
+interface ThemeState {
+  themeMode: "light" | "dark";
 }
 
-const initialTheme: State = {
-  theme: darkTheme,
+const initialTheme: ThemeState = {
+  themeMode: "light",
 };
 
-const themeReducer = (state: State = initialTheme, action: any): State => {
+const themeReducer = (
+  state: ThemeState = initialTheme,
+  action: ThemeDispatchTypes
+): ThemeState => {
   switch (action.type) {
     case "TOOGLE_THEME":
       state = {
         ...state,
-        theme: state.theme === lightTheme ? darkTheme : lightTheme,
+        themeMode: state.themeMode === "light" ? "dark" : "light",
       };
       return state;
     default:

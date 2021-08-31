@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <div>
-      <pre>{JSON.stringify(content, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(content, null, 2)}</pre> */}
 
       {content.words.map((wordObj) => (
         <MyCard wordObj={wordObj} />

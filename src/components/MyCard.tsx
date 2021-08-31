@@ -17,6 +17,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Word } from "../redux/reducers/contentReducer";
 import { RootStoreType } from "../redux/store/store";
 import { useSelector } from "react-redux";
+import Sentence from "./Sentence";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -40,7 +41,7 @@ interface Props {
 export default function MyCard(props: Props) {
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const { wordObj } = props;
-  const { word } = wordObj;
+  const { word, examplesForWord } = wordObj;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -48,11 +49,11 @@ export default function MyCard(props: Props) {
   };
 
   return (
-    <Card sx={{ maxWidth: "100%" }}>
+    <Card sx={{ maxWidth: "100%", mb: 2 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {word[0]}
+            {word[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -70,14 +71,19 @@ export default function MyCard(props: Props) {
         alt="Paella dish"
       /> */}
       <CardContent>
-        <pre>{JSON.stringify(props.wordObj, null, 2)}</pre>
+        {examplesForWord.map((exampleForWord) => (
+          <>
+            <Sentence exampleForWord={exampleForWord} />
+          </>
+        ))}
+        {/* <pre>{JSON.stringify(props.wordObj, null, 2)}</pre> */}
         {/* <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
           mussels, if you like.
         </Typography> */}
       </CardContent>
-      <CardActions disableSpacing>
+      {/* <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
@@ -92,7 +98,7 @@ export default function MyCard(props: Props) {
         >
           <ExpandMoreIcon />
         </ExpandMore>
-      </CardActions>
+      </CardActions> */}
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Lorem ipsum dolor sit amet.</Typography>

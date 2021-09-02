@@ -73,9 +73,11 @@ const contentReducer = (
 ): ContentState => {
   switch (action.type) {
     case SHOW_EXAMPLE_WORDS:
-      console.log(1, action);
+      console.log(1, state, action);
+
       state = {
         ...state,
+        // showExampleWords: action.showExampleWords,
       };
       return state;
     default:

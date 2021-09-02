@@ -18,6 +18,9 @@ import { Word } from "../redux/reducers/contentReducer";
 import { RootStoreType } from "../redux/store/store";
 import { useSelector } from "react-redux";
 import Sentence from "./Sentence";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { Box } from "@material-ui/core";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -42,63 +45,53 @@ export default function MyCard(props: Props) {
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const { wordObj } = props;
   const { word, examplesForWord } = wordObj;
+  const translation = wordObj[target_lang];
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   return (
     <Card sx={{ maxWidth: "100%", mb: 2 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {word[0].toUpperCase()}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={word}
-        subheader={wordObj[target_lang]}
-      />
-      {/* <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      /> */}
       <CardContent>
+        <Typography
+          sx={{
+            display: "flex",
+            color: "primary.dark",
+            fontSize: "2.3rem",
+            alignItems: "center",
+          }}
+          variant="subtitle1"
+          gutterBottom
+          component="h2"
+        >
+          <AddCircleOutlineIcon
+            sx={{ mr: 0.5 }}
+            color="success"
+            fontSize="large"
+          />
+          <PlayCircleOutlineIcon sx={{ mr: 0.5 }} fontSize="large" />
+          <Box
+            sx={{
+              cursor: "pointer",
+              mr: 1,
+            }}
+            component="span"
+          >
+            {word}
+          </Box>
+          <Box color="gray" component="span">
+            - {translation}
+          </Box>
+        </Typography>
+
         {examplesForWord.map((exampleForWord) => (
           <>
             <Sentence exampleForWord={exampleForWord} />
           </>
         ))}
-        {/* <pre>{JSON.stringify(props.wordObj, null, 2)}</pre> */}
-        {/* <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography> */}
       </CardContent>
-      {/* <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions> */}
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Lorem ipsum dolor sit amet.</Typography>

@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import React, { createElement, useRef } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import Home from "./pages/Home";
 import { RootStoreType } from "./redux/store/store";
@@ -18,6 +19,7 @@ function App() {
         <br />
         <pre>{JSON.stringify(themeMode, null, 2)}</pre> */}
 
+        <Header />
         {/* <Navbar />
         <Voice /> */}
         <Wrapper>

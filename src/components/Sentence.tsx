@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import { useState } from "react";
 import { showExampleWords } from "../redux/actions/contentActions";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 interface Props {
   exampleForWord: ExampleForWord;
@@ -32,27 +34,40 @@ export default function Sentence(props: Props) {
   const { example } = props.exampleForWord;
   const translation = props.exampleForWord[target_lang];
 
+  const handleShow = () => {
+    dispatch(showExampleWords(true));
+    setShow((p) => !p);
+  };
   return (
     <Box>
       {/* <pre>{JSON.stringify(props.exampleForWord, null, 2)}</pre> */}
 
       <Typography
         sx={{
+          display: "flex",
           color: "primary.dark",
           cursor: "pointer",
+          fontSize: "1.3rem",
         }}
         variant="subtitle1"
         gutterBottom
         component="h3"
-        onClick={() => dispatch(showExampleWords(true))}
       >
-        {example}
+        <AddCircleOutlineIcon
+          sx={{ mr: 0.5 }}
+          color="success"
+          fontSize="large"
+        />
+        <PlayCircleOutlineIcon sx={{ mr: 0.5 }} fontSize="large" />
+        <Box component="span" onClick={handleShow}>
+          {example}
+        </Box>
       </Typography>
 
       {show && (
         <Box
           sx={{
-            padding: "1rem",
+            padding: "0.1rem 1rem 1.5rem",
             // border: "1px solid red",
             // borderColor: "primary.dark",
             //   "&:hover": {

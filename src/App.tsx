@@ -1,17 +1,25 @@
 import { ThemeProvider } from "@emotion/react";
+import axios from "axios";
 import React, { createElement, useRef } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
+import Voice from "./components/Voice";
 import Wrapper from "./components/Wrapper";
 import Home from "./pages/Home";
 import { RootStoreType } from "./redux/store/store";
+import { ENDPOINT } from "./settings/settings";
 import { darkTheme, lightTheme } from "./theme/theme";
 
 function App() {
   const { themeMode } = useSelector((state: RootStoreType) => state.theme);
-  const { content } = useSelector((state: RootStoreType) => state);
 
+  useEffect(() => {
+    axios
+      .get(`${ENDPOINT}?slug=content-EN-PL-1`)
+      .then((res) => console.log(res.data));
+  }, []);
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <Router>
@@ -20,15 +28,13 @@ function App() {
         <pre>{JSON.stringify(themeMode, null, 2)}</pre> */}
 
         <Header />
-        {/* <Navbar />
-        <Voice /> */}
+        <Voice />
+
         <Wrapper>
           <>
             <Switch>
-              <Route exact path="/">
-                <Home />
-                {/* <h1>hello</h1> */}
-              </Route>
+              <Route exact path="/" component={Home} />
+
               <Route exact path="/:id">
                 {/* <Item /> */}
               </Route>

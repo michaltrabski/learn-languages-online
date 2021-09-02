@@ -1,2 +1,1 @@
-export const ENDPOINT =
-  "https://poznaj-testy.hekko24.pl/learn-languages-online";
+export const ENDPOINT = "https://dacmwwxjyw.cfolks.pl/files/languages/";

@@ -22,6 +22,8 @@ import { useState } from "react";
 import { showExampleWords } from "../redux/actions/contentActions";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { makeSlug } from "../utils/utils";
+import { changeVoice } from "../redux/actions/voiceActions";
 
 interface Props {
   exampleForWord: ExampleForWord;
@@ -32,19 +34,25 @@ export default function Sentence(props: Props) {
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const dispatch = useDispatch();
   const { example } = props.exampleForWord;
+  const slug = makeSlug(example);
   const translation = props.exampleForWord[target_lang];
 
   const handleShow = () => {
     dispatch(showExampleWords(true));
     setShow((p) => !p);
   };
+
+  const handlePlay = (slug: string) => {
+    dispatch(changeVoice(slug));
+  };
   return (
     <Box>
-      {/* <pre>{JSON.stringify(props.exampleForWord, null, 2)}</pre> */}
-
+      {/* <pre>{JSON.stringify(props.exampleForWord, null, 2)}</pre>
+      <pre>{JSON.stringify(slug, null, 2)}</pre> */}
       <Typography
         sx={{
           display: "flex",
+          alignItems: "center",
           color: "primary.dark",
           cursor: "pointer",
           fontSize: "1.3rem",
@@ -53,12 +61,14 @@ export default function Sentence(props: Props) {
         gutterBottom
         component="h3"
       >
-        <AddCircleOutlineIcon
-          sx={{ mr: 0.5 }}
-          color="success"
-          fontSize="large"
-        />
-        <PlayCircleOutlineIcon sx={{ mr: 0.5 }} fontSize="large" />
+        <IconButton>
+          <AddCircleOutlineIcon color="success" fontSize="large" />
+        </IconButton>
+
+        <IconButton onClick={() => handlePlay(slug)}>
+          <PlayCircleOutlineIcon color="primary" fontSize="large" />
+        </IconButton>
+
         <Box component="span" onClick={handleShow}>
           {example}
         </Box>

@@ -1,5 +1,4 @@
 import { createElement, useEffect, useRef, useState } from "react";
-import { slug } from "../utils/utils";
 
 const defaultAudioState = {
   playing: false,
@@ -16,7 +15,7 @@ export const useAudio = (url: string) => {
   const audioElement = createElement("audio", {
     src: url,
     ref,
-    controls: false,
+    controls: true,
     onPlay: () => () => {
       console.log("onPlay");
       // setAudioState((s) => ({ ...s, onPlay: true }));

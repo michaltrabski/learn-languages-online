@@ -1,8 +1,11 @@
 import { ThemeDispatchTypes } from "../actions/themeAction";
 
+export type SourceLang = "EN";
+export type TargetLang = "PL";
+
 interface LangState {
-  source_lang: "EN";
-  target_lang: "PL";
+  source_lang: SourceLang;
+  target_lang: TargetLang;
 }
 
 const initialLangState: LangState = {

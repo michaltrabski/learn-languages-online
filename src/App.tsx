@@ -16,11 +16,16 @@ import { darkTheme, lightTheme } from "./theme/theme";
 
 function App() {
   const { themeMode } = useSelector((state: RootStoreType) => state.theme);
-  const { words } = useSelector((state: RootStoreType) => state.content);
+  const { source_lang, target_lang } = useSelector(
+    (state: RootStoreType) => state.lang
+  );
+  const { words, currentPage } = useSelector(
+    (state: RootStoreType) => state.content
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadContent());
+    dispatch(loadContent(source_lang, target_lang, currentPage));
   }, [dispatch]);
 
   return (

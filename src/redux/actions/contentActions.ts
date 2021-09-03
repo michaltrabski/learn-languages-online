@@ -1,7 +1,12 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ENDPOINT } from "../../settings/settings";
-import { ContentState, ShowExampleWordsType } from "../reducers/contentReducer";
+import {
+  ContentState,
+  currentPage,
+  ShowExampleWordsType,
+} from "../reducers/contentReducer";
+import { SourceLang, TargetLang } from "../reducers/langReducer";
 
 export const SHOW_EXAMPLE_WORDS = "SHOW_EXAMPLE_WORDS";
 export const LOADING_CONTENT_SUCCESS = "LOADING_CONTENT_SUCCESS";
@@ -25,12 +30,20 @@ export const showExampleWords = (showExampleWords: ShowExampleWordsType) => ({
   showExampleWords,
 });
 
-export const loadContent = () => async (dispatch: Dispatch<LoadingContent>) => {
-  try {
-    const url = `${ENDPOINT}?slug=content-EN-PL-1`;
-    const res = await axios.get<ContentState>(url);
-    dispatch({ type: LOADING_CONTENT_SUCCESS, content: res.data });
-  } catch (err) {
-    console.log(89503845, "contentActions.ts", err);
-  }
-};
+export const loadContent =
+  (
+    source_lang: SourceLang,
+    target_lang: TargetLang,
+    currentPage: currentPage
+  ) =>
+  async (dispatch: Dispatch<LoadingContent>) => {
+    try {
+      const url = `${ENDPOINT}?slug=content-${source_lang}-${target_lang}-${
+        currentPage + 1
+      }`;
+      const res = await axios.get<ContentState>(url);
+      dispatch({ type: LOADING_CONTENT_SUCCESS, content: res.data });
+    } catch (err) {
+      console.log(89503845, "contentActions.ts", err);
+    }
+  };

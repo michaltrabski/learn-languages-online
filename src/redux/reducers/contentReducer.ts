@@ -1,3 +1,4 @@
+import { words } from "lodash";
 import {
   ContentDispatchTypes,
   LOADING_CONTENT_SUCCESS,
@@ -20,15 +21,16 @@ export interface Word {
   PL?: string;
 }
 
+export type currentPage = number;
 export interface ContentState {
   limit: number;
-  currentPage: number;
+  currentPage: currentPage;
   howManyPages: number;
   words: Word[];
 }
 
 const initialState: ContentState = {
-  limit: 10,
+  limit: 5,
   currentPage: 0,
   howManyPages: 0,
   words: [
@@ -37,9 +39,6 @@ const initialState: ContentState = {
     //   count: 154,
     //   examplesForWord: [
     //     { example: "Why did you it?", PL: "Dlaczego to zrobiłeś?" },
-    //     { example: "See you tomorrow.", PL: "Do zobaczenia jutro." },
-    //     { example: "Did you throw up?", PL: "Zwymiotowałeś?" },
-    //     { example: "Could you help me?", PL: "Czy mógłbyś mi pomóc?" },
     //   ],
     //   PL: "ty",
     // },
@@ -62,10 +61,11 @@ const contentReducer = (
 
     case LOADING_CONTENT_SUCCESS:
       console.log("LOADING_CONTENT_SUCCESS", action.content);
-      const { content } = action;
+      const { currentPage, words: newWords } = action.content;
       state = {
         ...state,
-        ...content,
+        currentPage,
+        words: [...state.words, ...newWords],
       };
       return state;
 

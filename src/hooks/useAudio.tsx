@@ -15,7 +15,7 @@ export const useAudio = (url: string) => {
   const audioElement = createElement("audio", {
     src: url,
     ref,
-    controls: true,
+    controls: false,
     onPlay: () => () => {
       console.log("onPlay");
       // setAudioState((s) => ({ ...s, onPlay: true }));

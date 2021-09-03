@@ -1,5 +1,6 @@
 import {
   ContentDispatchTypes,
+  LOADING_CONTENT_SUCCESS,
   SHOW_EXAMPLE_WORDS,
 } from "../actions/contentActions";
 import { ThemeDispatchTypes } from "../actions/themeAction";
@@ -19,7 +20,7 @@ export interface Word {
   PL?: string;
 }
 
-interface ContentState {
+export interface ContentState {
   limit: number;
   currentPage: number;
   howManyPages: number;
@@ -28,42 +29,20 @@ interface ContentState {
 
 const initialState: ContentState = {
   limit: 10,
-  currentPage: 111,
-  howManyPages: 444,
+  currentPage: 0,
+  howManyPages: 0,
   words: [
-    {
-      word: "you",
-      count: 154,
-      examplesForWord: [
-        { example: "Why did you it?", PL: "Dlaczego to zrobiłeś?" },
-        { example: "See you tomorrow.", PL: "Do zobaczenia jutro." },
-        { example: "Did you throw up?", PL: "Zwymiotowałeś?" },
-        { example: "Could you help me?", PL: "Czy mógłbyś mi pomóc?" },
-      ],
-      PL: "ty",
-    },
-    {
-      word: "to",
-      count: 130,
-      examplesForWord: [
-        { example: "From two to six.", PL: "Od dwóch do sześciu." },
-        { example: "Glad to meet you.", PL: "Miło mi cię poznać." },
-        { example: "Welcome to London.", PL: "Witamy w Londynie." },
-        { example: "Pleased to see you.", PL: "Miło mi cię widzieć." },
-      ],
-      PL: "do",
-    },
-    {
-      word: "is",
-      count: 92,
-      examplesForWord: [
-        { example: "How much is it?", PL: "Ile to jest?" },
-        { example: "Is it pure wool?", PL: "Czy to czysta wełna?" },
-        { example: "Is anybody hurt?", PL: "Czy ktoś jest ranny?" },
-        { example: "What is your name?", PL: "Jak masz na imię?" },
-      ],
-      PL: "jest",
-    },
+    // {
+    //   word: "you",
+    //   count: 154,
+    //   examplesForWord: [
+    //     { example: "Why did you it?", PL: "Dlaczego to zrobiłeś?" },
+    //     { example: "See you tomorrow.", PL: "Do zobaczenia jutro." },
+    //     { example: "Did you throw up?", PL: "Zwymiotowałeś?" },
+    //     { example: "Could you help me?", PL: "Czy mógłbyś mi pomóc?" },
+    //   ],
+    //   PL: "ty",
+    // },
   ],
 };
 
@@ -80,6 +59,16 @@ const contentReducer = (
         // showExampleWords: action.showExampleWords,
       };
       return state;
+
+    case LOADING_CONTENT_SUCCESS:
+      console.log("LOADING_CONTENT_SUCCESS", action.content);
+      const { content } = action;
+      state = {
+        ...state,
+        ...content,
+      };
+      return state;
+
     default:
       return state;
   }

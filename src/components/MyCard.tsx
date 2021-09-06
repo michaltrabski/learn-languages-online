@@ -17,10 +17,11 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Word } from "../redux/reducers/contentReducer";
 import { RootStoreType } from "../redux/store/store";
 import { useSelector } from "react-redux";
-import Sentence from "./Sentence";
+import SentenceItem from "./SentenceItem";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { Box } from "@material-ui/core";
+import WordItem from "./WordItem";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -54,8 +55,9 @@ export default function MyCard(props: Props) {
 
   return (
     <Card sx={{ maxWidth: "100%", mb: 2 }}>
+      {/* <pre>{JSON.stringify(wordObj, null, 2)}</pre> */}
       <CardContent>
-        <Typography
+        {/* <Typography
           sx={{
             display: "flex",
             color: "primary.dark",
@@ -84,11 +86,11 @@ export default function MyCard(props: Props) {
           <Box color="gray" component="span">
             - {translation}
           </Box>
-        </Typography>
-
+        </Typography> */}
+        <WordItem wordObj={wordObj} />
         {examplesForWord.map((exampleForWord) => (
           <>
-            <Sentence exampleForWord={exampleForWord} />
+            <SentenceItem exampleForWord={exampleForWord} />
           </>
         ))}
       </CardContent>

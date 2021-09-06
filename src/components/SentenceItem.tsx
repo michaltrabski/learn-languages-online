@@ -29,7 +29,7 @@ interface Props {
   exampleForWord: ExampleForWord;
 }
 
-export default function Sentence(props: Props) {
+export default function SentenceItem(props: Props) {
   const [show, setShow] = useState(false);
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const dispatch = useDispatch();

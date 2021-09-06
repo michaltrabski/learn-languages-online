@@ -25,7 +25,9 @@ type LoadingContent = LoadingContentSuccess;
 
 export type ContentDispatchTypes = ShowExampleWords | LoadingContent;
 
-export const showExampleWords = (showExampleWords: ShowExampleWordsType) => ({
+export const showExampleWords = (
+  showExampleWords: ShowExampleWordsType
+): ShowExampleWords => ({
   type: SHOW_EXAMPLE_WORDS,
   showExampleWords,
 });

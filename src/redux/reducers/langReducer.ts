@@ -18,11 +18,11 @@ const langReducer = (
   action: ThemeDispatchTypes
 ): LangState => {
   switch (action.type) {
-    case "TOOGLE_THEME":
-      state = {
-        ...state,
-      };
-      return state;
+    // case "TOOGLE_THEME":
+    //   state = {
+    //     ...state,
+    //   };
+    //   return state;
     default:
       return state;
   }

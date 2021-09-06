@@ -1,20 +1,24 @@
 import * as React from "react";
-import { styled, alpha } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Box from "@material-ui/core/Box";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import Brightness2TwoToneIcon from "@mui/icons-material/Brightness2TwoTone";
+import { useDispatch } from "react-redux";
+import { MyTheme, setTheme } from "../redux/actions/themeAction";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,7 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Header() {
+export default function PrimarySearchAppBar() {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -79,6 +84,11 @@ export default function Header() {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleSetTheme = () => {
+    const myTheme: MyTheme = "dark";
+    dispatch(setTheme(myTheme));
   };
 
   const menuId = "primary-search-account-menu";
@@ -166,7 +176,7 @@ export default function Header() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <HomeTwoToneIcon />
           </IconButton>
           <Typography
             variant="h6"
@@ -174,9 +184,9 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Material-UI
+            Learn Languages
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -184,7 +194,7 @@ export default function Header() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -216,6 +226,14 @@ export default function Header() {
             >
               <AccountCircle />
             </IconButton>
+            <IconButton
+              size="large"
+              aria-label="Theme"
+              color="inherit"
+              onClick={handleSetTheme}
+            >
+              <Brightness2TwoToneIcon />
+            </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -227,6 +245,16 @@ export default function Header() {
               color="inherit"
             >
               <MoreIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="Theme"
+              color="inherit"
+              onClick={handleSetTheme}
+            >
+              <Brightness2TwoToneIcon />
             </IconButton>
           </Box>
         </Toolbar>

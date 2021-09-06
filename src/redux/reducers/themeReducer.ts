@@ -1,5 +1,5 @@
 import { darkTheme, lightTheme, theme } from "../../theme/theme";
-import { ThemeDispatchTypes } from "../actions/themeAction";
+import { SET_THEME, ThemeDispatchTypes } from "../actions/themeAction";
 
 interface ThemeState {
   themeMode: "light" | "dark";
@@ -14,7 +14,8 @@ const themeReducer = (
   action: ThemeDispatchTypes
 ): ThemeState => {
   switch (action.type) {
-    case "TOOGLE_THEME":
+    case SET_THEME:
+      console.log(9834756, "themeReducer.ts", action);
       state = {
         ...state,
         themeMode: state.themeMode === "light" ? "dark" : "light",

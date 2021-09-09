@@ -5,6 +5,7 @@ import {
   SHOW_EXAMPLE_WORDS,
 } from "../actions/contentActions";
 import { ThemeDispatchTypes } from "../actions/themeAction";
+import { SourceLang } from "./langReducer";
 
 export type ShowExampleWordsType = boolean;
 
@@ -21,7 +22,23 @@ export interface Word {
   PL?: string;
 }
 
+export interface WordsInSentence {
+  word: string;
+  PL?: string;
+}
+
+export type SentenceOrWord = "sentence" | "word";
+export interface Sentence {
+  type: SentenceOrWord;
+  slug: string;
+  source_lang: SourceLang;
+  content: string;
+  PL?: string;
+  words: WordsInSentence[];
+}
+
 export type currentPage = number;
+
 export interface ContentState {
   limit: number;
   currentPage: currentPage;
@@ -33,16 +50,7 @@ const initialState: ContentState = {
   limit: 5,
   currentPage: 0,
   howManyPages: 0,
-  words: [
-    // {
-    //   word: "you",
-    //   count: 154,
-    //   examplesForWord: [
-    //     { example: "Why did you it?", PL: "Dlaczego to zrobiłeś?" },
-    //   ],
-    //   PL: "ty",
-    // },
-  ],
+  words: [],
 };
 
 const contentReducer = (

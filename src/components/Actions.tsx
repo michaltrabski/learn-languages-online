@@ -22,24 +22,37 @@ import { useState } from "react";
 import { showExampleWords } from "../redux/actions/contentActions";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { makeSlug } from "../utils/utils";
 import { changeVoice } from "../redux/actions/voiceActions";
 import WordsInSentenceItem from "./WordsInSentenceItem";
+
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 interface Props {
   slug: string;
 }
 
 export default function Actions(props: Props) {
+  const [added, setAdded] = useState(false);
   const dispatch = useDispatch();
 
   const handlePlay = (slug: string) => {
     dispatch(changeVoice(slug));
   };
+
+  const handleAddToRepetition = () => {
+    setAdded((p) => !p);
+  };
   return (
     <Box component="span">
-      <IconButton>
-        <AddCircleOutlineIcon color="success" fontSize="large" />
+      <IconButton onClick={handleAddToRepetition}>
+        {added ? (
+          <ThumbUpIcon color="success" fontSize="large" />
+        ) : (
+          <ThumbUpOffAltIcon color="inherit" fontSize="large" />
+        )}
       </IconButton>
 
       <IconButton onClick={() => handlePlay(props.slug)}>

@@ -71,6 +71,7 @@ export default function WordItem(props: Props) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        opacity: deleted ? "0.1" : "1",
       }}
     >
       <Typography
@@ -80,7 +81,6 @@ export default function WordItem(props: Props) {
           color: "primary.dark",
           cursor: "pointer",
           fontSize: "2.3rem",
-          opacity: deleted ? "0.1" : "1",
         }}
         variant="subtitle1"
         component="h2"
@@ -99,7 +99,7 @@ export default function WordItem(props: Props) {
 
       <IconButton onClick={handleDeleteDebounced}>
         {deleted ? (
-          <RestoreFromTrashIcon color="success" fontSize="large" />
+          <RestoreFromTrashIcon color="primary" fontSize="large" />
         ) : (
           <DeleteTwoToneIcon color="error" fontSize="large" />
         )}

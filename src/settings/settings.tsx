@@ -1,1 +1,1 @@
-export const ENDPOINT = "https://dacmwwxjyw.cfolks.pl/files/languages/";
+export const ENDPOINT = "https://files.dacmwwxjyw.cfolks.pl/languages/";

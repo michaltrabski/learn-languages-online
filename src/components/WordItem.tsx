@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { styled } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -25,12 +25,17 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { makeSlug } from "../utils/utils";
 import { changeVoice } from "../redux/actions/voiceActions";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
+import Actions from "./Actions";
+import _ from "lodash";
 
 interface Props {
   wordObj: Word;
 }
 
 export default function WordItem(props: Props) {
+  console.log("WordItem");
+  const [deleted, setDeleted] = useState(false);
   const [show, setShow] = useState(false);
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const dispatch = useDispatch();
@@ -46,6 +51,20 @@ export default function WordItem(props: Props) {
   const handlePlay = (slug: string) => {
     dispatch(changeVoice(slug));
   };
+
+  // const debounce = _.debounce(
+  //   setDeleted((p) => !p),
+  //   1000
+  // );
+  // const handleDelete = useCallback(debounce, [debounce]);
+
+  const handleDelete = () => {
+    console.log("handleDelete");
+    setDeleted((p) => !p);
+  };
+
+  const handleDeleteDebounced = useCallback(_.debounce(handleDelete, 1), []);
+
   return (
     <Box
       sx={{
@@ -61,16 +80,13 @@ export default function WordItem(props: Props) {
           color: "primary.dark",
           cursor: "pointer",
           fontSize: "2.3rem",
+          opacity: deleted ? "0.1" : "1",
         }}
         variant="subtitle1"
         component="h2"
       >
-        <IconButton>
-          <AddCircleOutlineIcon color="success" fontSize="large" />
-        </IconButton>
-        <IconButton onClick={() => handlePlay(slug)}>
-          <PlayCircleOutlineIcon color="primary" fontSize="large" />
-        </IconButton>
+        <Actions slug={slug} />
+
         <Box sx={{ mr: 1 }} component="span" onClick={handleShow}>
           {word}
         </Box>
@@ -81,8 +97,12 @@ export default function WordItem(props: Props) {
         )}
       </Typography>
 
-      <IconButton>
-        <DeleteTwoToneIcon color="error" fontSize="large" />
+      <IconButton onClick={handleDeleteDebounced}>
+        {deleted ? (
+          <RestoreFromTrashIcon color="success" fontSize="large" />
+        ) : (
+          <DeleteTwoToneIcon color="error" fontSize="large" />
+        )}
       </IconButton>
     </Box>
   );

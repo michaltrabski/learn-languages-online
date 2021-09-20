@@ -10,12 +10,14 @@ import { SourceLang } from "./langReducer";
 export type ShowExampleWordsType = boolean;
 
 export interface ExampleForWord {
+  id: string;
   example: string;
   showExampleWords?: ShowExampleWordsType; // if True then I display each words for this example
   PL?: string; // this is translation to Polish language
 }
 
 export interface Word {
+  id: string;
   word: string;
   count: number;
   examplesForWord: ExampleForWord[];

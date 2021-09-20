@@ -51,7 +51,11 @@ export default function Actions(props: Props) {
         {added ? (
           <ThumbUpIcon color="success" fontSize="large" />
         ) : (
-          <ThumbUpOffAltIcon color="inherit" fontSize="large" />
+          <ThumbUpOffAltIcon
+            sx={{ opacity: "0.1" }}
+            color="inherit"
+            fontSize="large"
+          />
         )}
       </IconButton>
 

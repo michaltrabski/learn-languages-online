@@ -40,9 +40,13 @@ export const loadContent =
   ) =>
   async (dispatch: Dispatch<LoadingContent>) => {
     try {
+      // const url = `${ENDPOINT}content/${source_lang}/${target_lang}/?slug=content-${source_lang}-${target_lang}-${
+      //   currentPage + 1
+      // }`;
       const url = `${ENDPOINT}?slug=content-${source_lang}-${target_lang}-${
         currentPage + 1
       }`;
+      console.log(11111111111111, url);
       const res = await axios.get<ContentState>(url);
       dispatch({ type: LOADING_CONTENT_SUCCESS, content: res.data });
     } catch (err) {

@@ -1,5 +1,5 @@
 import { Box, Button } from "@material-ui/core";
-import React, { createElement, useRef } from "react";
+import React, { createElement, Fragment, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import MyCard from "../components/MyCard";
@@ -23,7 +23,9 @@ function Home() {
       {/* <pre>{JSON.stringify(content, null, 2)}</pre> */}
 
       {words.map((wordObj) => (
-        <MyCard wordObj={wordObj} />
+        <Fragment key={wordObj.id}>
+          <MyCard wordObj={wordObj} />
+        </Fragment>
       ))}
 
       <Box sx={{ mb: 2 }}>

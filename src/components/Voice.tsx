@@ -7,7 +7,9 @@ export interface VoiceProps {}
 
 const Voice = (props: VoiceProps) => {
   const { path, slug } = useSelector((state: RootStoreType) => state.voice);
-  const url = `${path}${slug}.mp3`;
+  const { source_lang } = useSelector((state: RootStoreType) => state.lang);
+
+  const url = `${path}${source_lang}/${slug}.mp3`;
   const { audioElement, audioState, setAudioState, controls } = useAudio(url);
 
   return (

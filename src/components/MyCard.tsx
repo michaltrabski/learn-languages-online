@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { styled } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -57,41 +57,13 @@ export default function MyCard(props: Props) {
     <Card sx={{ maxWidth: "100%", mb: 2 }}>
       {/* <pre>{JSON.stringify(wordObj, null, 2)}</pre> */}
       <CardContent>
-        {/* <Typography
-          sx={{
-            display: "flex",
-            color: "primary.dark",
-            fontSize: "2.3rem",
-            alignItems: "center",
-          }}
-          variant="subtitle1"
-          gutterBottom
-          component="h2"
-        >
-          <AddCircleOutlineIcon
-            sx={{ mr: 0.5 }}
-            color="success"
-            fontSize="large"
-          />
-          <PlayCircleOutlineIcon sx={{ mr: 0.5 }} fontSize="large" />
-          <Box
-            sx={{
-              cursor: "pointer",
-              mr: 1,
-            }}
-            component="span"
-          >
-            {word}
-          </Box>
-          <Box color="gray" component="span">
-            - {translation}
-          </Box>
-        </Typography> */}
         <WordItem wordObj={wordObj} />
         {examplesForWord.map((exampleForWord) => (
-          <>
+          <Fragment key={exampleForWord.id}>
+            {/* <pre>{JSON.stringify(exampleForWord)}</pre> */}
+
             <SentenceItem exampleForWord={exampleForWord} />
-          </>
+          </Fragment>
         ))}
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

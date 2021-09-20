@@ -40,7 +40,7 @@ export default function SentenceItem(props: Props) {
   const translation = props.exampleForWord[target_lang];
 
   const handleShow = () => {
-    dispatch(showExampleWords(show ? false : true));
+    // dispatch(showExampleWords(show ? false : true));
     setShow((p) => !p);
   };
 

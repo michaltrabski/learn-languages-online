@@ -43,9 +43,12 @@ export const loadContent =
       // const url = `${ENDPOINT}content/${source_lang}/${target_lang}/?slug=content-${source_lang}-${target_lang}-${
       //   currentPage + 1
       // }`;
-      const url = `${ENDPOINT}?slug=content-${source_lang}-${target_lang}-${
-        currentPage + 1
-      }`;
+
+      const EN = source_lang;
+      const PL = target_lang;
+      const c = currentPage + 1;
+      const url = `${ENDPOINT}?EN=${EN}&slug=content-${EN}-${c}`;
+
       console.log(11111111111111, url);
       const res = await axios.get<ContentState>(url);
       dispatch({ type: LOADING_CONTENT_SUCCESS, content: res.data });

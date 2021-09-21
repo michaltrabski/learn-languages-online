@@ -41,7 +41,7 @@ interface Props {
 export default function WordsInSentenceItem(props: Props) {
   const [sentence, setSentence] = useState<Sentence | null>();
   const [words, setWords] = useState<WordsInSentence[]>([]);
-  const { source_lang, target_lang } = useSelector(
+  const { source_lang: EN, target_lang } = useSelector(
     (state: RootStoreType) => state.lang
   );
   const dispatch = useDispatch();
@@ -49,7 +49,9 @@ export default function WordsInSentenceItem(props: Props) {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get<Sentence>(`${ENDPOINT}?slug=${slug}`);
+      const res = await axios.get<Sentence>(
+        `${ENDPOINT}?EN=${EN}&slug=${slug}`
+      );
       const sentence = res.data;
       if (sentence.type !== "sentence") return;
 

@@ -32,7 +32,7 @@ function App() {
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <Router>
-        <pre>{JSON.stringify(voice, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(voice, null, 2)}</pre> */}
 
         {/* <pre>{JSON.stringify(themeMode, null, 2)}</pre> */}
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -50,14 +50,20 @@ export default function Actions(props: Props) {
     props.slug,
     source_lang
   );
+  const [loadVoice, setLoadVoice] = useState(false);
 
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
 
   // const { waiting } = audioState;
 
+  useEffect(() => {
+    play();
+  }, [audioState.duration]);
+
   const handlePlay = (slug: string) => {
-    dispatch(changeVoice(slug));
+    setLoadVoice(true);
+    // dispatch(changeVoice(slug));
     play();
   };
 
@@ -66,7 +72,12 @@ export default function Actions(props: Props) {
   };
   return (
     <>
-      <Box>{audioElement}</Box>
+      {loadVoice && (
+        <p>
+          {audioElement}
+          {/* <pre>{JSON.stringify(audioState, null, 2)}</pre> */}
+        </p>
+      )}
 
       <Box component="span">
         <IconButton onClick={handleAddToRepetition}>

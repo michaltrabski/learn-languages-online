@@ -24,6 +24,7 @@ function Home() {
 
       {words.map((wordObj) => (
         <Fragment key={wordObj.id}>
+          {/* {JSON.stringify(wordObj.id)} */}
           <MyCard wordObj={wordObj} />
         </Fragment>
       ))}

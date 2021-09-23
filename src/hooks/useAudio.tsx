@@ -1,16 +1,20 @@
 import { createElement, useEffect, useRef, useState } from "react";
+import { AudioState } from "../redux/reducers/voiceReducer";
 
-const defaultAudioState = {
+const defaultAudioState: AudioState = {
   playing: false,
   ended: false,
   waiting: false,
   pause: false,
   duration: 0,
 };
-export const useAudio = (url: string) => {
-  const [audioState, setAudioState] = useState(defaultAudioState);
+
+export const useAudio = (path: string, slug: string, source_lang: string) => {
+  const [audioState, setAudioState] = useState<AudioState>(defaultAudioState);
+  const [playNow, setPlayNow] = useState(false);
 
   const ref = useRef<HTMLAudioElement | null>(null);
+  const url = `${path}mp3/${source_lang}/${slug}.mp3`;
 
   const audioElement = createElement("audio", {
     src: url,
@@ -92,11 +96,21 @@ export const useAudio = (url: string) => {
     // },
   };
 
-  useEffect(() => {
-    const audio = ref.current;
-    if (!audio) return;
-    audio.play();
-  }, [url]);
+  // useEffect(() => {
+  //   const audio = ref.current;
+  //   if (!audio) return;
+  //   audio.play();
+  // }, [url]);
+
+  // useEffect(() => {
+  //   const audio = ref.current;
+  //   if (!audio) return;
+  // }, []);
+
+  // useEffect(() => {
+  //   const audio = ref.current;
+  //   if (audio && playNow) audio.play();
+  // }, [playNow]);
 
   //   useEffect(() => {
   //     setAudioState((s) => ({ ...s, ready: false }));
@@ -104,7 +118,7 @@ export const useAudio = (url: string) => {
   //   }, [src, state.duration]);
 
   return {
-    audioElement,
+    audioElement: slug ? audioElement : null,
     audioState,
     setAudioState,
     controls,

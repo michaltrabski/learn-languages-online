@@ -24,44 +24,72 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { makeSlug } from "../utils/utils";
-import { changeVoice } from "../redux/actions/voiceActions";
+import {
+  changeAudioState,
+  changeVoice,
+  playVoice,
+} from "../redux/actions/voiceActions";
 import WordsInSentenceItem from "./WordsInSentenceItem";
 
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import { initialAudioState } from "../redux/reducers/voiceReducer";
 
 interface Props {
   slug: string;
 }
 
 export default function Actions(props: Props) {
-  const [added, setAdded] = useState(false);
+  const { path, slug, audioState } = useSelector(
+    (state: RootStoreType) => state.voice
+  );
   const dispatch = useDispatch();
+  const [added, setAdded] = useState(false);
+
+  const { waiting } = audioState;
 
   const handlePlay = (slug: string) => {
     dispatch(changeVoice(slug));
+    dispatch(playVoice());
   };
 
   const handleAddToRepetition = () => {
     setAdded((p) => !p);
   };
   return (
-    <Box component="span">
-      <IconButton onClick={handleAddToRepetition}>
-        {added ? (
-          <ThumbUpIcon color="success" fontSize="large" />
-        ) : (
-          <ThumbUpOffAltIcon
-            sx={{ opacity: "0.1" }}
-            color="inherit"
-            fontSize="large"
-          />
-        )}
-      </IconButton>
+    <>
+      <Box component="span">
+        <IconButton onClick={handleAddToRepetition}>
+          {added ? (
+            <ThumbUpIcon color="success" fontSize="large" />
+          ) : (
+            <ThumbUpOffAltIcon
+              sx={{ opacity: "0.1" }}
+              color="inherit"
+              fontSize="large"
+            />
+          )}
+        </IconButton>
 
-      <IconButton onClick={() => handlePlay(props.slug)}>
-        <PlayCircleOutlineIcon color="primary" fontSize="large" />
-      </IconButton>
-    </Box>
+        {slug !== props.slug && (
+          <IconButton onClick={() => handlePlay(props.slug)}>
+            <PlayCircleOutlineIcon color="primary" fontSize="large" />
+          </IconButton>
+        )}
+
+        {slug === props.slug && (
+          <IconButton onClick={() => handlePlay(props.slug)}>
+            {waiting ? (
+              <HourglassEmptyIcon color="primary" fontSize="large" />
+            ) : (
+              <PlayCircleOutlineIcon color="primary" fontSize="large" />
+            )}
+          </IconButton>
+        )}
+      </Box>
+
+      {/* <pre>{JSON.stringify(audioState, null, 2)}</pre> */}
+    </>
   );
 }

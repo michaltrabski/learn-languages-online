@@ -46,8 +46,8 @@ export default function MyCard(props: Props) {
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
   const { wordObj } = props;
   const { word, examplesForWord } = wordObj;
-  const translation = wordObj[target_lang];
-  const [expanded, setExpanded] = React.useState(false);
+  // const translation = wordObj[target_lang];
+  // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
   //   setExpanded(!expanded);
@@ -60,17 +60,15 @@ export default function MyCard(props: Props) {
         <WordItem wordObj={wordObj} />
         {examplesForWord.map((exampleForWord) => (
           <Fragment key={exampleForWord.id}>
-            {/* <pre>{JSON.stringify(exampleForWord)}</pre> */}
-
             <SentenceItem exampleForWord={exampleForWord} />
           </Fragment>
         ))}
       </CardContent>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Lorem ipsum dolor sit amet.</Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

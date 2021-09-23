@@ -35,23 +35,30 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import { initialAudioState } from "../redux/reducers/voiceReducer";
+import { useAudio1 } from "../hooks/useAudio1";
 
 interface Props {
   slug: string;
 }
 
 export default function Actions(props: Props) {
-  const { path, slug, audioState } = useSelector(
-    (state: RootStoreType) => state.voice
+  const { path } = useSelector((state: RootStoreType) => state.voice);
+  const { source_lang } = useSelector((state: RootStoreType) => state.lang);
+
+  const { audioElement, audioState, play } = useAudio1(
+    path,
+    props.slug,
+    source_lang
   );
+
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
 
-  const { waiting } = audioState;
+  // const { waiting } = audioState;
 
   const handlePlay = (slug: string) => {
     dispatch(changeVoice(slug));
-    dispatch(playVoice());
+    play();
   };
 
   const handleAddToRepetition = () => {
@@ -59,6 +66,8 @@ export default function Actions(props: Props) {
   };
   return (
     <>
+      <Box>{audioElement}</Box>
+
       <Box component="span">
         <IconButton onClick={handleAddToRepetition}>
           {added ? (
@@ -72,6 +81,11 @@ export default function Actions(props: Props) {
           )}
         </IconButton>
 
+        <IconButton onClick={() => handlePlay(props.slug)}>
+          <PlayCircleOutlineIcon color="primary" fontSize="large" />
+        </IconButton>
+
+        {/*           
         {slug !== props.slug && (
           <IconButton onClick={() => handlePlay(props.slug)}>
             <PlayCircleOutlineIcon color="primary" fontSize="large" />
@@ -86,7 +100,7 @@ export default function Actions(props: Props) {
               <PlayCircleOutlineIcon color="primary" fontSize="large" />
             )}
           </IconButton>
-        )}
+        )} */}
       </Box>
 
       {/* <pre>{JSON.stringify(audioState, null, 2)}</pre> */}

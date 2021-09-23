@@ -34,7 +34,6 @@ interface Props {
 }
 
 export default function WordItem(props: Props) {
-  console.log("WordItem");
   const [deleted, setDeleted] = useState(false);
   const [show, setShow] = useState(false);
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
@@ -44,7 +43,6 @@ export default function WordItem(props: Props) {
   const translation = props.wordObj[target_lang];
 
   const handleShow = () => {
-    dispatch(showExampleWords(true));
     setShow((p) => !p);
   };
 
@@ -63,7 +61,7 @@ export default function WordItem(props: Props) {
     setDeleted((p) => !p);
   };
 
-  const handleDeleteDebounced = useCallback(_.debounce(handleDelete, 1), []);
+  // const handleDeleteDebounced = useCallback(_.debounce(handleDelete, 1), []);
 
   return (
     <Box
@@ -97,7 +95,7 @@ export default function WordItem(props: Props) {
         )}
       </Typography>
 
-      <IconButton onClick={handleDeleteDebounced}>
+      <IconButton onClick={handleDelete}>
         {deleted ? (
           <RestoreFromTrashIcon color="primary" fontSize="large" />
         ) : (

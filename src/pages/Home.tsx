@@ -21,10 +21,8 @@ function Home() {
   return (
     <div>
       {/* <pre>{JSON.stringify(content, null, 2)}</pre> */}
-
-      {words.map((wordObj) => (
-        <Fragment key={wordObj.id}>
-          {/* {JSON.stringify(wordObj.id)} */}
+      {words.map((wordObj, index) => (
+        <Fragment key={index}>
           <MyCard wordObj={wordObj} />
         </Fragment>
       ))}

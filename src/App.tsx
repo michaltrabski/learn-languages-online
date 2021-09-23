@@ -22,6 +22,7 @@ function App() {
   const { words, currentPage } = useSelector(
     (state: RootStoreType) => state.content
   );
+  const { voice } = useSelector((state: RootStoreType) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,12 +32,12 @@ function App() {
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <Router>
-        {/* <pre>{JSON.stringify(content, null, 2)}</pre>
-        <br />
-        <pre>{JSON.stringify(themeMode, null, 2)}</pre> */}
+        <pre>{JSON.stringify(voice, null, 2)}</pre>
+
+        {/* <pre>{JSON.stringify(themeMode, null, 2)}</pre> */}
 
         <Header />
-        <Voice />
+        {/* <Voice /> */}
 
         <Wrapper>
           <>

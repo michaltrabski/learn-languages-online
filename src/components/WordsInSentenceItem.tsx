@@ -58,6 +58,8 @@ export default function WordsInSentenceItem(props: Props) {
       const { words: newWords } = sentence;
       setSentence(sentence);
       setWords(newWords);
+
+      console.log("Clen up here: WordsInSentenceItem");
     })();
   }, []);
 
@@ -80,8 +82,8 @@ export default function WordsInSentenceItem(props: Props) {
           {translation}
         </Typography>
 
-        {words.map((w) => (
-          <Box>
+        {words.map((w, index) => (
+          <Box key={index}>
             <Actions slug={makeSlug(w.word)} />
             <Box component="span">
               {w.word} - {w[target_lang]}

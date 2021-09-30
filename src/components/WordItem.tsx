@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { styled } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -28,6 +28,11 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import Actions from "./Actions";
 import _ from "lodash";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import ContentEditable from "react-contenteditable";
+import axios from "axios";
+import FlagTwoToneIcon from "@mui/icons-material/FlagTwoTone";
+import Play from "./Play";
 
 interface Props {
   wordObj: Word;
@@ -37,71 +42,93 @@ export default function WordItem(props: Props) {
   const [deleted, setDeleted] = useState(false);
   const [show, setShow] = useState(false);
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
-  const dispatch = useDispatch();
   const { word } = props.wordObj;
+  // const wordRef = useRef(word);
   const slug = makeSlug(word);
-  const translation = props.wordObj[target_lang];
+  const translations = props.wordObj[target_lang];
 
   const handleShow = () => {
     setShow((p) => !p);
   };
-
-  const handlePlay = (slug: string) => {
-    dispatch(changeVoice(slug));
-  };
-
-  // const debounce = _.debounce(
-  //   setDeleted((p) => !p),
-  //   1000
-  // );
-  // const handleDelete = useCallback(debounce, [debounce]);
 
   const handleDelete = () => {
     console.log("handleDelete");
     setDeleted((p) => !p);
   };
 
-  // const handleDeleteDebounced = useCallback(_.debounce(handleDelete, 1), []);
+  // const handleChange = (evt: any) => {
+  //   wordRef.current = evt?.target?.value;
+  // };
 
+  // const handleBlur = () => {
+  //   if (wordRef.current === word) return;
+  //   axios
+  //     .post("http://localhost:5000/api", {
+  //       type: "word",
+  //       oryginal: word,
+  //       replaceWith: wordRef.current,
+  //     })
+  //     .then(() => console.log("Send => ", wordRef.current));
+  // };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        opacity: deleted ? "0.1" : "1",
-      }}
-    >
-      <Typography
+    <>
+      {/* <pre>{JSON.stringify(props.wordObj, null, 2)}</pre> */}
+
+      <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          color: "primary.dark",
-          cursor: "pointer",
-          fontSize: "2.3rem",
+          opacity: deleted ? "0.1" : "1",
+          // backgroundColor: "yellow",
         }}
-        variant="subtitle1"
-        component="h2"
       >
-        <Actions slug={slug} />
+        {/* <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            // backgroundColor: "gray",
+          }}
+        >
+          <Actions slug={slug} />
+          <IconButton onClick={handleDelete}>
+            {deleted ? (
+              <RestoreFromTrashIcon color="primary" fontSize="large" />
+            ) : (
+              <DeleteTwoToneIcon color="error" fontSize="large" />
+            )}
+          </IconButton>
+        </Box> */}
 
-        <Box sx={{ mr: 1 }} component="span" onClick={handleShow}>
-          {word}
-        </Box>
-        {show && (
-          <Box sx={{ cursor: "default" }} component="span" color="gray">
-            - {translation}
+        <Typography
+          sx={{
+            position: "relative",
+            color: "primary.dark",
+
+            fontSize: "2.3rem",
+            // backgroundColor: "orange",
+          }}
+          variant="subtitle1"
+          component="h2"
+        >
+          <Play slug={slug} />
+          <Box
+            sx={{
+              cursor: "pointer",
+            }}
+            component="span"
+            onClick={handleShow}
+          >
+            {word}
           </Box>
-        )}
-      </Typography>
-
-      <IconButton onClick={handleDelete}>
-        {deleted ? (
-          <RestoreFromTrashIcon color="primary" fontSize="large" />
-        ) : (
-          <DeleteTwoToneIcon color="error" fontSize="large" />
-        )}
-      </IconButton>
-    </Box>
+        </Typography>
+      </Box>
+      {show && (
+        <>
+          {translations?.slice(0, 5).map((translationItem, index) => (
+            <Typography key={index} variant="body2" gutterBottom>
+              - {translationItem}
+            </Typography>
+          ))}
+        </>
+      )}
+    </>
   );
 }

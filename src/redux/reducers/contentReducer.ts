@@ -9,6 +9,8 @@ import { SourceLang } from "./langReducer";
 
 export type ShowExampleWordsType = boolean;
 
+export type Translations = string[];
+
 export interface ExampleForWord {
   id: string;
   example: string;
@@ -21,12 +23,12 @@ export interface Word {
   word: string;
   count: number;
   examplesForWord: ExampleForWord[];
-  PL?: string;
+  PL?: Translations;
 }
 
 export interface WordsInSentence {
   word: string;
-  PL?: string;
+  PL?: Translations;
 }
 
 export type SentenceOrWord = "sentence" | "word";
@@ -35,7 +37,7 @@ export interface Sentence {
   slug: string;
   source_lang: SourceLang;
   content: string;
-  PL?: string;
+  PL?: Translations;
   words: WordsInSentence[];
 }
 

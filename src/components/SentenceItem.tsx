@@ -26,6 +26,7 @@ import { makeSlug } from "../utils/utils";
 import { changeVoice } from "../redux/actions/voiceActions";
 import WordsInSentenceItem from "./WordsInSentenceItem";
 import Actions from "./Actions";
+import Play from "./Play";
 
 interface Props {
   exampleForWord: ExampleForWord;
@@ -34,7 +35,6 @@ interface Props {
 export default function SentenceItem(props: Props) {
   const [show, setShow] = useState(false);
   const { target_lang } = useSelector((state: RootStoreType) => state.lang);
-  const dispatch = useDispatch();
   const { example } = props.exampleForWord;
   const slug = makeSlug(example);
   const translation = props.exampleForWord[target_lang];
@@ -44,28 +44,40 @@ export default function SentenceItem(props: Props) {
     setShow((p) => !p);
   };
 
-  const handlePlay = (slug: string) => {
-    dispatch(changeVoice(slug));
-  };
+  // const handlePlay = (slug: string) => {
+  //   dispatch(changeVoice(slug));
+  // };
+
+  // const handleEditableChange = () => {
+  //   console.log("changes");
+  // };
   return (
     <Box>
       {/* <pre>{JSON.stringify(props.exampleForWord, null, 2)}</pre>
       <pre>{JSON.stringify(slug, null, 2)}</pre> */}
+
+      {/* <Actions slug={slug} /> */}
+
       <Typography
         sx={{
           display: "flex",
           alignItems: "center",
           color: "primary.dark",
-          cursor: "pointer",
           fontSize: "1.3rem",
+          // backgroundColor: "green",
         }}
         variant="subtitle1"
-        gutterBottom
         component="h3"
+        gutterBottom
       >
-        <Actions slug={slug} />
-
-        <Box component="span" onClick={handleShow}>
+        <Play slug={slug} />
+        <Box
+          sx={{
+            cursor: "pointer",
+          }}
+          component="span"
+          onClick={handleShow}
+        >
           {example}
         </Box>
       </Typography>

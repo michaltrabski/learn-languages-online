@@ -41,7 +41,7 @@ interface Props {
   slug: string;
 }
 
-export default function Actions(props: Props) {
+export default function Play(props: Props) {
   const { path } = useSelector((state: RootStoreType) => state.voice);
   const { source_lang } = useSelector((state: RootStoreType) => state.lang);
 
@@ -52,9 +52,6 @@ export default function Actions(props: Props) {
   );
   const [loadVoice, setLoadVoice] = useState(false);
 
-  const dispatch = useDispatch();
-  const [added, setAdded] = useState(false);
-
   // const { waiting } = audioState;
 
   useEffect(() => {
@@ -63,54 +60,18 @@ export default function Actions(props: Props) {
 
   const handlePlay = (slug: string) => {
     setLoadVoice(true);
-    // dispatch(changeVoice(slug));
     play();
   };
 
-  const handleAddToRepetition = () => {
-    setAdded((p) => !p);
-  };
   return (
     <>
       {loadVoice && <>{audioElement}</>}
 
-      {/* <Box sx={{ backgroundColor: "red", minWidth: "102px" }}> */}
-      <Box sx={{ minWidth: "102px" }}>
-        <IconButton onClick={handleAddToRepetition}>
-          {added ? (
-            <ThumbUpIcon color="success" fontSize="large" />
-          ) : (
-            <ThumbUpOffAltIcon
-              sx={{ opacity: "0.1" }}
-              color="inherit"
-              fontSize="large"
-            />
-          )}
-        </IconButton>
-
+      <Box component="span">
         <IconButton onClick={() => handlePlay(props.slug)}>
-          <PlayCircleOutlineIcon color="primary" fontSize="large" />
+          <PlayCircleOutlineIcon color="warning" fontSize="large" />
         </IconButton>
-
-        {/*           
-        {slug !== props.slug && (
-          <IconButton onClick={() => handlePlay(props.slug)}>
-            <PlayCircleOutlineIcon color="primary" fontSize="large" />
-          </IconButton>
-        )}
-
-        {slug === props.slug && (
-          <IconButton onClick={() => handlePlay(props.slug)}>
-            {waiting ? (
-              <HourglassEmptyIcon color="primary" fontSize="large" />
-            ) : (
-              <PlayCircleOutlineIcon color="primary" fontSize="large" />
-            )}
-          </IconButton>
-        )} */}
       </Box>
-
-      {/* <pre>{JSON.stringify(audioState, null, 2)}</pre> */}
     </>
   );
 }

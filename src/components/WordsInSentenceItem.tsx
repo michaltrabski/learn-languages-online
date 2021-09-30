@@ -32,6 +32,8 @@ import { changeVoice } from "../redux/actions/voiceActions";
 import { ENDPOINT } from "../settings/settings";
 import axios from "axios";
 import Actions from "./Actions";
+import Play from "./Play";
+import { grey } from "@mui/material/colors";
 
 interface Props {
   slug: string;
@@ -67,7 +69,7 @@ export default function WordsInSentenceItem(props: Props) {
     <Box>
       {/* <pre>{JSON.stringify(sentence, null, 2)}</pre> */}
 
-      <Box sx={{ padding: "0.1rem 1rem 1.5rem" }}>
+      <Box>
         <Typography
           sx={{
             display: "flex",
@@ -83,8 +85,9 @@ export default function WordsInSentenceItem(props: Props) {
         </Typography>
 
         {words.map((w, index) => (
-          <Box key={index}>
-            <Actions slug={makeSlug(w.word)} />
+          <Box sx={{ backgroundColor: grey[300] }} key={index}>
+            <Play slug={makeSlug(w.word)} />
+
             <Box component="span">
               {w.word} - {w[target_lang]}
             </Box>
